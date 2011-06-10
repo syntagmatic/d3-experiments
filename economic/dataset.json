@@ -1,4 +1,4 @@
-var dataset = {
+{
   "rows" : [
     {
       "country_name" : "Afghanistan",
@@ -93358,4 +93358,4 @@ var dataset = {
       "FY2009" : 173254800
     }
   ]
-};
+}
