@@ -41,34 +41,10 @@ var fill = d3.scale.ordinal()
     .domain(d3.range(4))
     .range(["#000000", "#FFDD89", "#957244", "#F26223"]);
 
-function render(chord) {
-
-  var svg = d3.select("#chart")
-    .append("svg:svg")
-      .attr({
-        "width": w,
-        "height": h
-        })
-    .append("svg:g")
-      .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
-
-  svg.append("svg:g")
-    .selectAll("path")
-      .data(chord.groups)
-    .enter().append("svg:path")
-      .attr("class", "arcs")
-      .style({
-        "fill": function(d) { return fill(d.index); },
-        "stroke": function(d) { return fill(d.index); }
-        })
-      .attr("d", d3.svg.arc().innerRadius(r0).outerRadius(r1))
-      .on({
-        "mouseover": fade(.1),
-        "mouseout": fade(1)
-        });
-
+function drawTicks(chord, svg) {
   var ticks = svg.append("svg:g")
       .attr("class", "ticks")
+      .attr("opacity", 1)
     .selectAll("g")
       .data(chord.groups)
     .enter().append("svg:g")
@@ -102,6 +78,37 @@ function render(chord) {
         })
       .text(function(d) { return d.label; });
 
+  return ticks;
+}
+
+function render(chord) {
+
+  var svg = d3.select("#chart")
+    .append("svg:svg")
+      .attr({
+        "width": w,
+        "height": h
+        })
+    .append("svg:g")
+      .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+
+  svg.append("svg:g")
+    .selectAll("path")
+      .data(chord.groups)
+    .enter().append("svg:path")
+      .attr("class", "arcs")
+      .style({
+        "fill": function(d) { return fill(d.index); },
+        "stroke": function(d) { return fill(d.index); }
+        })
+      .attr("d", d3.svg.arc().innerRadius(r0).outerRadius(r1))
+      .on({
+        "mouseover": fade(.1),
+        "mouseout": fade(1)
+        });
+
+  drawTicks(chord, svg);
+
   svg.append("svg:g")
       .attr("class", "chord")
     .selectAll("path")
@@ -118,25 +125,25 @@ function render(chord) {
 
 function rerender(chord, svg) {
 
+  // remove ticks
+  svg.selectAll(".ticks")
+    .transition()
+      .delay(700)
+    .attr("opacity", 0);
+
   var arcs = svg.selectAll('.arcs')
       .data(chord.groups)
       .transition()
         .duration(1700)
-      .attr("d", d3.svg.arc().innerRadius(r0).outerRadius(r1));
-  
-  /**THIS DOES NOT WORK**
-  var ticks = svg.selectAll(".ticks").selectAll("g")
-      .data(chord.groups)
-    .selectAll("g")
-      .data(groupTicks)
-    .selectAll("g")
-      .attr("transform", function(d) {
-        return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
-            + "translate(" + r1 + ",0)";
-      });
-   */
+      .attrTween("d", arcTween);
 
-  svg.select('.chord')
+  drawTicks(chord,svg)
+    .attr("opacity", 0)
+    .transition()
+      .delay(1400)
+    .attr("opacity", 1);
+  
+  svg.select(".chord")
     .selectAll("path")
       .data(chord.chords)
       .transition()
@@ -150,22 +157,44 @@ function rerender(chord, svg) {
 
 var svg = render(chord);
 
-setTimeout(function() {
 
-  // Modify chord matrix
-  chord
-  .matrix([
-    [ 2975,  5871, 8916, 2868],
-    [ 1951,    48, 2060, 6171],
-    [ 1010,  6145, 1090, 8045],
-    [ 1013,   990,  940, 6907]
-  ]);
 
-  rerender(chord, svg);
-  render(chord);
+function shuffle() {
+  setTimeout(function() {
 
-}, 600);
+    // Modify chord matrix
+    chord
+    .matrix([
+      [ rand(), rand(), rand(), rand()],
+      [ rand(), rand(), rand(), rand()],
+      [ rand(), rand(), rand(), rand()],
+      [ rand(), rand(), rand(), rand()]
+    ]);
 
+    rerender(chord, svg);
+    //render(chord);
+    setTimeout(function() {
+      shuffle();
+    }, 4000);
+  }, 600);
+}
+
+// Begin transition loop
+shuffle();
+
+function rand() {
+  return 10000*Math.random();
+}
+
+// Doesn't actually tween
+function arcTween(d, i, a) {
+  var arc = d3.svg.arc()
+    .startAngle(d.startAngle)
+    .endAngle(d.endAngle)
+    .innerRadius(r0)
+    .outerRadius(r1);
+  return arc;
+}
 
 /** Returns an array of tick angles and labels, given a group. */
 function groupTicks(d) {
