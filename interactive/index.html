@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>d3.js Playground in CoffeeScript</title>
+<link rel="stylesheet" href="style.css" type="text/css" media="screen">
+<style type="text/less" id="styles"/>
+</style>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/shell.js"></script>
+<script type="text/javascript" src="js/less.min.js"></script>
+<script type="text/javascript" src="../d3/d3.js"></script>
+<script type="text/javascript" src="js/coffee-script.js"></script>
+<script type="text/coffeescript" src="coffee/interactive.coffee"></script>
+</head>
+<body onload="init()">
+
+<div id="console">
+  <div id="output">
+    <div class="print">
+      This is d3 interactive.
+    </div>
+  </div>
+  <div id="input_wrap">
+    <textarea id="input" wrap="off" onkeydown="inputKeydown(event)" rows="1"></textarea>
+    </script>
+  </div>
+</div>
+
+<div id="dashboard" style="float:right;width:200px;margin:10px;position:relative;z-index:15;">
+  <div class="props">
+    <script type="text/template" id="input-element">
+      <%= key %>:<br/> <input type="text" name="<%= key %>" value="<%= value %>" /><br/>
+    </script>
+    <script type="text/template" id="slider-element">
+      <%= key %>:<br/> <input type="range"name="<%= key %>" value="<%= value %>" min="0" max="<%= max %>" step="<%= step %>"/><br/>
+    </script>
+  </div>
+</div>
+
+</div>
+</body></html>
