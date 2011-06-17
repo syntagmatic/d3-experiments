@@ -13,7 +13,7 @@ var div = d3.select("#chart").append("div")
     .style("width", w + "px")
     .style("height", h + "px");
 
-d3.json("economic/dataset.json", function(json) {
+d3.json("dataset.json", function(json) {
   div.data(d3.entries(json)).selectAll("div")
       .data(treemap)
     .enter().append("div")
