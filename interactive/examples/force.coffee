@@ -21,7 +21,7 @@ require ["../d3/d3.layout.js", "../d3/d3.geom.js"], ->
       .attr("width", w)
       .attr("height", h);
 
-  d3.json("examples/miserables.json", function(json) {
+  d3.json("data/miserables.json", function(json) {
     var force = d3.layout.force()
         .charge(-120)
         .distance(30)
