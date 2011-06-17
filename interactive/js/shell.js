@@ -96,6 +96,7 @@ function inputKeydown(e) {
     if (e.ctrlKey || caretInLastLine(_in))
       hist(false);
   } else if (e.keyCode == 9) { // tab
+    e.preventDefault();
     // remove tab complete results
     $('.tabcomplete').remove()
     tabcomplete();

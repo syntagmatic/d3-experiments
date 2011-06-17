@@ -28,3 +28,10 @@ do ->
   window.example = (name) ->
     $.get 'examples/' + name + '.coffee', (data) ->
       go data, 'coffee'
+
+  examples = ['bar', 'chord', 'force', 'unemployment', 'stream']
+
+  for ex in examples
+    $('#examples').append ex + ', '
+    do (ex) ->
+      window[ex] = -> example ex
