@@ -1,4 +1,3 @@
-
 require ["../d3/d3.geo.js"], ->
   `
   var data; // loaded asynchronously
@@ -42,7 +41,7 @@ require ["../d3/d3.geo.js"], ->
   `
   return
 
-style '
+addStyle '
 svg {
   width: 960px;
   height: 500px;
@@ -60,7 +59,7 @@ svg {
 }
 '
 
-style '
+addStyle '
 /*
  * This product includes color specifications and designs developed by Cynthia
  * Brewer (http://colorbrewer.org/).

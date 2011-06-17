@@ -1,27 +1,92 @@
-body { background: #131313;  color: #aaa;  font-size:13px;
-       text-align: center;  min-width:960px;
-       font-family: Consolas, Monaco, "Lucida Console", monospace;}
-html, body { margin:0;  padding:0;  height:100%;  overflow: auto;}
-h1 { font-weight: 400;  height: 5%;  float:left;
-     margin: 20px 0 0 29px;  color: #666;  font-size:16px;}
-#console { background: #222;  background: rgba(34,34,34,0.7);
-           color: #ffcf6f;  font-size:13px;  float: left;  position: fixed; bottom:0;
-           text-align:left;  margin: 0;  padding: 0;  width: 100%; height:150px; z-index: 10;
-           border-top: 1px dashed #333;}
-#console pre { margin: 0;}
-#input { height:150px; width: 50%; float:right; padding: 0;
-         overflow:hidden; font-size:13px;  background: #2B211F;  color: #fdb;
-         border: none; overflow: auto; }
-#output { width: 50%; max-height: 150px; float:left; overflow: auto;}
-.input { padding-top: 12px;}
+html, body {
+  margin:0;
+  padding:0;
+  height:100%;
+  overflow: auto;
+}
+
+body {
+  font-size:13px;
+  min-width:960px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-weight: 400;
+  height: 5%;
+  float:left;
+  margin: 20px 0 0 29px;
+  color: #666;
+  font-size:24px;
+}
+h2 {
+  font-size: 16px;
+}
+#console {
+  position: fixed;
+  bottom: 0;
+  padding: 0;
+  width: 100%;
+  z-index: 10;
+  float: left;
+}
+.widget {
+  float: left;
+  width: 33.333%;
+}
+.widget h2 {
+  height: 20px;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin: 0 0 0 24px;
+}
+.editor_wrap {
+  background: #fff;
+  border: 2px solid #ddd;
+  padding: 8px 10px;
+  margin: 0 14px 14px;
+  border-radius: 9px;  
+}
+.editor {
+  height: 122px;
+  width: 100%;
+  padding: 0px;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  font-family: Consolas, Monaco, "Lucida Console", monospace;
+  font-weight: bold;
+  overflow: auto;
+  resize: none;
+}
+#output {
+  max-height: 146px;
+  overflow: auto;
+  font-family: Consolas, Monaco, "Lucida Console", monospace;
+  background: #f4f3f2;
+  background: rgba(244,243,242,0.85);
+}
+
+.input { color: #1f77b4; font-weight: bold; padding-top: 12px;}
 .error { color: #f32;  font-weight: bold;}
-.print { color: #0d4;}
-.normalOutput {  color: #efefef;  font-weight: bold;}
+.print { font-weight: bold; }
+.normalOutput { }
 .tabcomplete {  background: #444;  position: relative;  top: 4px;  left: -2px;  padding: 2px;}
-.tabcomplete strong {  color: #efefef;}
-p {  color: #999;  margin: 20px 0 0 29px;}
-p, pre {  text-align: left;  font-size:13px;}
-pre {  margin: 12px 0 20px 29px;}
-pre span {  color: #888;}
+.tabcomplete strong { color: #efefef;}
+p { margin: 0 0 14px 0;}
 a, a:visited {  color: #ddd;  text-decoration: none;}
 a:hover {  color: #fff;  text-decoration: underline;}
+
+.pink { color: #e377c2; }
+.orange { color: #ff7f0e; }
+.green { color: #2ca02c; }
+.lime { color: #98df8a; }
+.lightpink { color: #f7b6d2; }
+.blue { color: #1f77b4; }
+.purple { color: #9467bd; }
+.lavender { color: #c5b0d5; }
+.brown { color: #8c564b; }
+.red { color: #d62728; }
+.salmon { color: #ff9896; }
+.grey { color: #666; }

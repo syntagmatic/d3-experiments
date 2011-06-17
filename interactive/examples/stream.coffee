@@ -1,16 +1,4 @@
-$('body').append '
-<button id="stream_update""> 
-        Update
-</button>
-'
-
-style '
-.stream {
-  stroke: #777;
-  stroke-opacity: 0.03;
-  stroke-width: 2px;
-}
-'
+$('body').append '<button id="stream_update"">Update</button>'
 
 require ["../d3/d3.layout.js"], ->
   `

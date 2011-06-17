@@ -1,37 +1,47 @@
-do ->
+# styles
+window.style = (style) ->
+  for selector, rules of style
+    addStyle '\r' + selector + ' {\r'
+    for prop, value of rules
+      addStyle '  ' + prop + ': ' + value + ';\r'
+    addStyle '}\r'
+window.addStyle = (string) ->
+    $('#css').append string
+    $('#style').append string
+window.resetStyle = (style) -> $('#css').html style
+window.background = (color) -> $('body').css {background: color}
 
-  # math
-  window.abs = Math.abs
-  window.acos = Math.acos
-  window.asin = Math.asin
-  window.atan = Math.atan
-  window.ceil = Math.ceil
-  window.cos = Math.cos
-  window.exp = Math.exp
-  window.floor = Math.floor
-  window.log = Math.log
-  window.max = Math.max
-  window.min = Math.min
-  window.pi = Math.PI
-  window.pow = Math.pow
-  window.random = Math.random
-  window.round = Math.round
-  window.sin = Math.sin
-  window.sqrt = Math.sqrt
-  window.tan = Math.tan
+# examples
+window.example = (name) ->
+  $.get 'examples/' + name + '.coffee', (data) ->
+    eval CoffeeScript.compile(data)
+  return
 
-  # styles
-  window.background = (color) -> $('body').css {background: color}
-  window.style = (style) -> $('#styles').append style
+window.examples = ['force', 'stream', 'chord', 'splom', 'bar', 'aid', 'unemployment']
+window.explanations =
+  'force': "Click and drag nodes"
+  'chord': "Hover over arcs to see connections"
+  'splom': "Click and drag to select points"
+  'stream': "Click update to toggle dataset"
+  'unemployment': "Unemployment in the United States"
+  'bar': "A basic bar chart"
+  'aid': "US Foreign Aid"
 
-  # examples
-  window.example = (name) ->
-    $.get 'examples/' + name + '.coffee', (data) ->
-      go data, 'coffee'
+for ex, i in examples
+  $('#examples').append 'do ' + ex + '<br/>'
+  do (ex) ->
+    window[ex] = ->
+      example ex
+      print explanations[ex]
 
-  examples = ['bar', 'chord', 'force', 'aid', 'unemployment', 'stream']
+# d3
+window.clear = ->
+  d3.select('body').selectAll('svg').remove()
+  print 'Canvas cleared'
 
-  for ex in examples
-    $('#examples').append ex + ', '
-    do (ex) ->
-      window[ex] = -> example ex
+
+$ ->
+  $('#style').html $('#css').html()                 # populate style editor with existing styles
+  $('#style').blur ->
+    console.log $(this).val()
+    resetStyle $(this).val()

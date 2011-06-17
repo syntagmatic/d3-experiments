@@ -1,14 +1,8 @@
-style '
-body {
-  font: 10px sans-serif;
-}
-
-.chord path {
-  fill-opacity: .67;
-  stroke: #000;
-  stroke-width: .5px;
-}
-'
+style
+  '.chord path':
+    'fill-opacity': .67
+    'stroke': '#000'
+    'stroke-width': '.5px'
 
 require ["../d3/d3.layout.js"], ->
   `
@@ -73,7 +67,6 @@ require ["../d3/d3.layout.js"], ->
         "y1": 0,
         "x2": 5,
         "y2": 0,
-        "stroke": "#000"
         });
 
   ticks.append("svg:text")

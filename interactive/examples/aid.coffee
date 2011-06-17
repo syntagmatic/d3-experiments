@@ -12,14 +12,10 @@ require ["../d3/d3.geo.js"], ->
       .append("svg:title")
       .text((d) -> d.properties.name)
 
-style '
-svg {
-  width: 960px;
-  height: 500px;
-}
-
-path {
-  stroke: #fff;
-  stroke-width: .25px;
-}
-'
+style
+  svg:
+    width: '960px'
+    height: '500px'
+  path:
+    stroke: '#fff'
+    'stroke-width': '.25px'

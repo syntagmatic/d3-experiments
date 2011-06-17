@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <title>d3.js Playground in CoffeeScript</title>
 <link rel="stylesheet" href="style.css" type="text/css" media="screen">
-<style type="text/css" id="styles"/>
+<style type="text/css" id="css"/>body {
+  background: #f4f3f2;
+  color: #222;
+}
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/shell.js"></script>
@@ -16,16 +19,30 @@
 <body onload="init()">
 
 <div id="console">
-  <div id="output">
-    <div class="print">
-      <p>This is d3 interactive.</p>
-      <p>Examples: <span id="examples"></span></p>
-      <p>Type 'do [example]' to view one, such as: <span class="print">do force</span></p>
+
+  <div class="widget">
+    <h2>Coffeescript</h2>
+    <div class="editor_wrap">
+      <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
     </div>
   </div>
-  <div id="input_wrap">
-    <textarea id="input" wrap="off" onkeydown="inputKeydown(event)" rows="1"></textarea>
-    </script>
+  <div class="widget">
+    <h2 style="margin:0;">Output</h2>
+    <div class="widget_wrap">
+      <div id="output">
+        <strong>
+          <p>Try d3, data-driven documents!</p>
+          <p>Enter these examples on the left:</p>
+          <p><span id="examples" class="blue"></span></p>
+        </strong>
+      </div>
+    </div>
+  </div>
+  <div class="widget">
+    <h2>Style Sheet</h2>
+    <div class="editor_wrap">
+      <textarea id="style" class="editor grey" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
+    </div>
   </div>
 </div>
 
