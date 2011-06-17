@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <title>d3.js Playground in CoffeeScript</title>
 <link rel="stylesheet" href="style.css" type="text/css" media="screen">
-<style type="text/less" id="styles"/>
+<style type="text/css" id="styles"/>
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/shell.js"></script>
-<script type="text/javascript" src="js/less.min.js"></script>
+<script type="text/javascript" src="js/require.js"></script>
 <script type="text/javascript" src="../d3/d3.js"></script>
 <script type="text/javascript" src="js/coffee-script.js"></script>
 <script type="text/coffeescript" src="coffee/interactive.coffee"></script>
@@ -18,7 +18,9 @@
 <div id="console">
   <div id="output">
     <div class="print">
-      This is d3 interactive.
+      <p>This is d3 interactive.</p>
+      <p>Examples: bar, chord, force, stream</p>
+      <p>To see an example, type <span class="print">example 'force'</span></p>
     </div>
   </div>
   <div id="input_wrap">
