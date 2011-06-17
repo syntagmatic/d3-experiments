@@ -29,7 +29,7 @@ do ->
     $.get 'examples/' + name + '.coffee', (data) ->
       go data, 'coffee'
 
-  examples = ['bar', 'chord', 'force', 'unemployment', 'stream']
+  examples = ['bar', 'chord', 'force', 'aid', 'unemployment', 'stream']
 
   for ex in examples
     $('#examples').append ex + ', '
