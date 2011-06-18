@@ -34,22 +34,30 @@ h2 {
   float: left;
   width: 33.333%;
 }
-.widget h2 {
-  height: 20px;
-  font-size: 13px;
+.widget nav {
+  height: 16px;
+  font-size: 12px;
   text-transform: uppercase;
-  color: #aaa;
-  margin: 0 0 0 24px;
+  color: #666;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-left: 14px;
+}
+.widget nav div {
+  text-align: center;
+}
+.editor_wrap,
+.widget_wrap {
+  padding: 8px 10px;
+  margin: 0 0 14px;
 }
 .editor_wrap {
   background: #fff;
   border: 2px solid #ddd;
-  padding: 8px 10px;
   margin: 0 14px 14px;
-  border-radius: 9px;  
 }
 .editor {
-  height: 122px;
+  height: 160px;
   width: 100%;
   padding: 0px;
   margin: 0;
@@ -61,7 +69,7 @@ h2 {
   resize: none;
 }
 #output {
-  max-height: 146px;
+  height: 160px;
   overflow: auto;
   font-family: Consolas, Monaco, "Lucida Console", monospace;
   background: #f4f3f2;
@@ -75,8 +83,8 @@ h2 {
 .tabcomplete {  background: #444;  position: relative;  top: 4px;  left: -2px;  padding: 2px;}
 .tabcomplete strong { color: #efefef;}
 p { margin: 0 0 14px 0;}
-a, a:visited {  color: #ddd;  text-decoration: none;}
-a:hover {  color: #fff;  text-decoration: underline;}
+a, a:visited { color: #000;  text-decoration: none;}
+a:hover { text-decoration: underline;}
 
 .pink { color: #e377c2; }
 .orange { color: #ff7f0e; }

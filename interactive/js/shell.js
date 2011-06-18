@@ -148,6 +148,7 @@ function println(s, type)
     newdiv.appendChild(document.createTextNode(s));
     newdiv.className = type;
     _out.appendChild(newdiv);
+    scrollToBottom("output");
     return newdiv;
   }
 }

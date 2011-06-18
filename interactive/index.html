@@ -21,41 +21,32 @@
 <div id="console">
 
   <div class="widget">
-    <h2>Coffeescript</h2>
+    <nav>
+      <div class="active">Coffeescript Console</div>
+    </nav>
     <div class="editor_wrap">
       <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
     </div>
   </div>
   <div class="widget">
-    <h2 style="margin:0;">Output</h2>
+    <nav>
+      <div class="active">Output</div>
+    </nav>
     <div class="widget_wrap">
       <div id="output">
-        <strong>
-          <p>Try d3, data-driven documents!</p>
-          <p>Enter these examples on the left:</p>
-          <p><span id="examples" class="blue"></span></p>
-        </strong>
+        <p>Try <strong><a href="http://mbostock.github.com/d3/" target="_blank">d3.js</a></strong>, data-driven documents!</p>
+        <p>Enter these examples on the left:</p>
+        <p><strong id="examples" class="blue"></strong></p>
       </div>
     </div>
   </div>
   <div class="widget">
-    <h2>Style Sheet</h2>
+    <nav>
+      <div class="active">Style Sheet</div>
+    </nav>
     <div class="editor_wrap">
       <textarea id="style" class="editor grey" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
     </div>
   </div>
-</div>
-
-<div id="dashboard" style="float:right;width:200px;margin:10px;position:relative;z-index:15;">
-  <div class="props">
-    <script type="text/template" id="input-element">
-      <%= key %>:<br/> <input type="text" name="<%= key %>" value="<%= value %>" /><br/>
-    </script>
-    <script type="text/template" id="slider-element">
-      <%= key %>:<br/> <input type="range"name="<%= key %>" value="<%= value %>" min="0" max="<%= max %>" step="<%= step %>"/><br/>
-    </script>
-  </div>
-</div>
-
 </div>
 </body></html>

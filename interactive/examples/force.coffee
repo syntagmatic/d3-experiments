@@ -6,10 +6,11 @@ style
     'stroke': '#999'
     'stroke-opacity': .6
 
-require ["../d3/d3.layout.js", "../d3/d3.geom.js"], ->
+window.force = (file) ->
   w = 960
   h = 500
   fill = d3.scale.category20()
+  file = file or 'data/miserables.json'
 
   vis = d3.select("body")
           .append("svg:svg")
@@ -18,7 +19,7 @@ require ["../d3/d3.layout.js", "../d3/d3.geom.js"], ->
             "height": h
           )
   
-  d3.json "data/miserables.json", (json) ->
+  d3.json file, (json) ->
     force = d3.layout.force()
               .charge(-120)
               .distance(30)
@@ -71,3 +72,5 @@ require ["../d3/d3.layout.js", "../d3/d3.geom.js"], ->
         "cx": d.x
         "cy": d.y
         )
+
+do force
