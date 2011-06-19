@@ -38,10 +38,16 @@ window.examples =
     intro: "A basic bar chart"
     file: "examples/bar.coffee"
     requirements: []
+###
   'aid':
     intro: "US Foreign Aid"
     file: "examples/aid.coffee"
     requirements: ["../d3/d3.geo.js"]
+  'brain':
+    intro: "Neural network with Brain.js"
+    file: "examples/brain.coffee"
+    requirements: ["js/brain.js"]
+###
 
 # load example
 window.example = (name) ->

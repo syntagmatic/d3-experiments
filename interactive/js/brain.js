@@ -2268,6 +2268,7 @@ NeuralNetwork.prototype = {
   train : function(data, iterations, errorThresh, callback, resolution) {
     iterations = iterations || 20000;
     errorThresh = errorThresh || 0.007;
+    console.log(this);
 
     var error = 1;
     for(var i = 0; i < iterations && error > errorThresh; i++) {
