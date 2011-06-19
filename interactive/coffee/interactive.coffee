@@ -16,33 +16,37 @@ window.examples =
   'force':
     intro: "A force-directed layout. Click and drag nodes"
     file: "examples/force.coffee"
-    requirements: ["../d3/d3.layout.js", "../d3/d3.geom.js"]
+    requirements: ["../d3/d3.js", "../d3/d3.layout.js", "../d3/d3.geom.js"]
     help: "Usage: force [json file]"
   'chord':
     intro: "A network visualization. Hover over arcs to see connections"
     file: "examples/chord.coffee"
-    requirements: ["../d3/d3.layout.js"]
+    requirements: ["../d3/d3.js", "../d3/d3.layout.js"]
   'splom':
     intro: "Mutliple scatterplots. Click and drag to select points"
     file: "examples/splom.coffee"
-    requirements: []
+    requirements: ["../d3/d3.js"]
   'stream':
     intro: "A streamgraph. Click update to toggle dataset"
     file: "examples/stream.coffee"
-    requirements: ["../d3/d3.layout.js"]
+    requirements: ["../d3/d3.js", "../d3/d3.layout.js"]
   'unemployment':
     intro: "Unemployment in the United States"
     file: "examples/unemployment.coffee"
-    requirements: ["../d3/d3.geo.js"]
+    requirements: ["../d3/d3.js", "../d3/d3.geo.js"]
   'bar':
     intro: "A basic bar chart"
     file: "examples/bar.coffee"
-    requirements: []
+    requirements: ["../d3/d3.js"]
+  'spiral':
+    intro: "Far out!"
+    file: "examples/spiral.coffee"
+    requirements: ["js/raphael.js"]
 ###
   'aid':
     intro: "US Foreign Aid"
     file: "examples/aid.coffee"
-    requirements: ["../d3/d3.geo.js"]
+    requirements: ["../d3/d3.js", "../d3/d3.geo.js"]
   'brain':
     intro: "Neural network with Brain.js"
     file: "examples/brain.coffee"

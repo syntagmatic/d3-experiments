@@ -5,7 +5,7 @@
 data = [4, 8, 15, 16, 23, 42]
 
 # create chart container
-chart = d3.select("body")
+chart = d3.select("#canvas")
   .append("div")
   .attr("class", "chart")
 

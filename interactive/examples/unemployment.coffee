@@ -3,7 +3,7 @@ var data; // loaded asynchronously
 
 var path = d3.geo.path();
 
-var svg = d3.select("body")
+var svg = d3.select("#canvas")
   .append("svg:svg");
 
 var counties = svg.append("svg:g")
@@ -38,14 +38,8 @@ function quantize(d) {
   return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
 }
 `
-return
 
 addStyle '
-svg {
-width: 960px;
-height: 500px;
-}
-
 #counties path {
 stroke: #222;
 stroke-width: .25px;

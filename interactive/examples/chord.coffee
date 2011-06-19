@@ -25,7 +25,7 @@ var fill = d3.scale.ordinal()
     .domain(d3.range(4))
     .range(["#000000", "#FFDD89", "#957244", "#F26223"]);
 
-var svg = d3.select("body")
+var svg = d3.select("#canvas")
   .append("svg:svg")
     .attr({
       "width": w,

@@ -12,7 +12,7 @@ window.force = (file) ->
   fill = d3.scale.category20()
   file = file or 'data/miserables.json'
 
-  vis = d3.select("body")
+  vis = d3.select("#canvas")
           .append("svg:svg")
           .attr(
             "width": w

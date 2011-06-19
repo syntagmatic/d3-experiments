@@ -1,5 +1,5 @@
 xy = d3.geo.azimuthal().scale(240).mode("stereographic")
-chart = d3.select("body")
+chart = d3.select("#canvas")
   .append("svg:svg")
 path = d3.geo.path().projection(xy)
 

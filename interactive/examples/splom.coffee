@@ -31,7 +31,7 @@ d3.json("data/flowers.json", function(flower) {
   });
 
   // Root panel.
-  var svg = d3.select("body")
+  var svg = d3.select("#canvas")
     .append("svg:svg")
       .attr("width", size * flower.traits.length)
       .attr("height", size * flower.traits.length);

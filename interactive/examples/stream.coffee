@@ -1,4 +1,4 @@
-$('body').append '<button id="stream_update"">Update</button>'
+$('#canvas').append '<button id="stream_update"">Update</button>'
 
 `
 /* Inspired by Lee Byron's test data generator. */
@@ -43,7 +43,7 @@ var n = 20, // number of layers
     data1 = d3.layout.stack().offset("wiggle")(stream_layers(n, m)),
     color = d3.scale.category20b();
 
-var w = $('body').width(),
+var w = $('#canvas').width(),
     h = 500,
     mx = m - 1,
     my = d3.max(data0.concat(data1), function(d) {
@@ -57,7 +57,7 @@ var area = d3.svg.area()
     .y0(function(d) { return h - d.y0 * h / my; })
     .y1(function(d) { return h - (d.y + d.y0) * h / my; });
 
-var vis = d3.select("body")
+var vis = d3.select("#canvas")
   .append("svg:svg")
     .attr("width", w)
     .attr("height", h);
