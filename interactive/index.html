@@ -21,35 +21,26 @@
 
 <div id="canvas"></div>
 
-<div id="console">
 
-  <div class="widget">
-    <nav>
-      <div class="active">Coffeescript Console</div>
-    </nav>
-    <div class="editor_wrap">
-      <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
-    </div>
+<div class="widget" id="console">
+  <nav>
+    <div class="active">Output</div>
+  </nav>
+  <div id="output">
+    <p>Try <strong><a href="http://mbostock.github.com/d3/" target="_blank">d3.js</a></strong>, data-driven documents!</p>
+    <p>Enter these examples below:</p>
+    <p>
+      <strong id="examples" class="blue">get force</strong><br/>
+      <strong id="examples" class="blue">coffee force</strong>
+    </p>
   </div>
-  <div class="widget">
-    <nav>
-      <div class="active">Output</div>
-    </nav>
-    <div class="widget_wrap">
-      <div id="output">
-        <p>Try <strong><a href="http://mbostock.github.com/d3/" target="_blank">d3.js</a></strong>, data-driven documents!</p>
-        <p>Enter these examples on the left:</p>
-        <p><strong id="examples" class="blue"></strong></p>
-      </div>
-    </div>
-  </div>
-  <div class="widget">
-    <nav>
-      <div class="active">Style Sheet</div>
-    </nav>
-    <div class="editor_wrap">
-      <textarea id="style" class="editor grey" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
-    </div>
-  </div>
+  <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
 </div>
+<div class="widget" id="code">
+  <nav>
+    <div class="active">Style Sheet</div>
+  </nav>
+  <div id="editor" class="editor grey"></div>
+</div>
+
 </body></html>

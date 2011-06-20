@@ -24,16 +24,25 @@ h2 {
 }
 #canvas {
   position: absolute;
-  width: 100%;
+  width: 50%;
+  height: 50%;
+  top: 0;
+  left: 0;
+}
+#code {
+  position: absolute;
+  width: 50%;
   height: 100%;
+  top: 0;
+  right: 0;
+  background: #fff;
 }
 #console {
-  position: fixed;
-  bottom: 0;
-  padding: 0;
-  width: 100%;
-  z-index: 10;
-  float: left;
+  position: absolute;
+  width: 50%;
+  height: 40%;
+  top: 60%;
+  left: 0;
 }
 .widget {
   float: left;
@@ -51,30 +60,27 @@ h2 {
 .widget nav div {
   text-align: center;
 }
-.editor_wrap,
-.widget_wrap {
-  padding: 8px 10px;
-  margin: 0 0 14px;
-}
-.editor_wrap {
-  background: #fff;
-  border: 2px solid #ddd;
-  margin: 0 14px 14px;
-}
 .editor {
-  height: 160px;
   width: 100%;
   padding: 0px;
   margin: 0;
   border: 0;
   outline: 0;
   font-family: Consolas, Monaco, "Lucida Console", monospace;
-  font-weight: bold;
   overflow: auto;
   resize: none;
 }
+#editor {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+#input {
+  height: 30%;
+}
 #output {
-  height: 160px;
+  height: 70%;
   overflow: auto;
   font-family: Consolas, Monaco, "Lucida Console", monospace;
   background: #f4f3f2;

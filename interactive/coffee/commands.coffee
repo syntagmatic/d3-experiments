@@ -11,31 +11,32 @@ window.get = (settings) ->
             settings.js = CoffeeScript.compile data
             settings.help = settings.help
             print settings.intro
-            print "Type 'run " + settings.name + "'"
       return "Loading " + settings.name + "..."
 
-# run example by loading
-for ex of examples
-  $('#examples').append 'get ' + ex + '<br/>'
-
-# help
+# commands
 window.help = (f) ->
+  # TODO: formatting
   f.help
-
-# coffeescript
-window.coffee = (f) ->
-  f.coffee
-
-# coffeescript
+window.coffee = window.vim = (f) ->
+  # TODO: open coffeescript editor
+  # f.coffee
+  if !coffee.editor
+    run editcoffee
+  coffee.editor.coffee()
+  coffee.editor.getSession().setValue f.coffee
+window.css = ->
+  if !css.editor
+    run editcoffee
+  css.editor.style()
+  css.editor.getSession().setValue $('#css').html()
 window.js = (f) ->
+  # TODO: open javascript editor
   f.js
-
-# run 
-window.run= (f) ->
+window.run = (f) ->
+  # TODO: arguments
   eval f.js
-
-
-# d3
-window.clear = ->
+window.clear  = ->
   $('#canvas').html ''
   print 'Canvas cleared'
+
+get editcoffee
