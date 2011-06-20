@@ -18,4 +18,4 @@ window.background = (color) -> $('body').css {background: color}
 $ ->
   $('#style').html $('#css').html()  # populate style editor with existing styles
   $('#style').keyup ->               # update styles on key up
-  resetStyle $(this).val()
+    resetStyle $(this).val()
