@@ -14,7 +14,7 @@ editor.js = ->
   JsMode = require("ace/mode/javascript").Mode
   editor.getSession().setMode(new JsMode())
   run = (code) ->
-    resetStyle code
+    eval code
 
 editor.style = ->
   StyleMode = require("ace/mode/css").Mode
