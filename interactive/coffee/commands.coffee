@@ -1,42 +1,53 @@
 # load example
-window.get = (settings) ->
-  switch settings.type
+window.get = (module, callback) ->
+  switch module.type
     when 'coffee'
       $.ajax
-        url: settings.file
+        url: module.file
         async: false
         success: (data) ->
-          require settings.requirements, ->
-            settings.coffee = data
-            settings.js = CoffeeScript.compile data
-            settings.help = settings.help
-            print settings.intro
-      return "Loading " + settings.name + "..."
+          require module.requirements, ->
+            module.coffee = data
+            module.js = CoffeeScript.compile data
+            if callback
+              callback module
+            print module.intro
+      return "Loading " + module.name + "..."
 
 # commands
-window.help = (f) ->
+window.help = (module) ->
   # TODO: formatting
-  f.help
-window.coffee = window.vim = (f) ->
-  # TODO: open coffeescript editor
-  # f.coffee
-  if !coffee.editor
-    run editcoffee
-  coffee.editor.coffee()
-  coffee.editor.getSession().setValue f.coffee
+  module.help
+
+window.coffee = window.vim = (module) ->
+  # open coffeescript editor
+  if !module.coffee
+    get module, (module) ->
+      editor.coffee()
+      editor.getSession().setValue module.coffee
+    return
+  editor.coffee()
+  editor.getSession().setValue module.coffee
+
 window.css = ->
-  if !css.editor
-    run editcoffee
-  css.editor.style()
-  css.editor.getSession().setValue $('#css').html()
-window.js = (f) ->
-  # TODO: open javascript editor
-  f.js
-window.run = (f) ->
+  # open css editor
+  editor.style()
+  editor.getSession().setValue $('#css').html()
+
+window.js = (module) ->
+  # open javascript editor
+  if !module.js
+    get module, (module) ->
+      editor.js()
+      editor.getSession().setValue module.js
+    return
+  editor.js()
+  editor.getSession().setValue module.js
+
+window.run = (module) ->
   # TODO: arguments
-  eval f.js
+  eval module.js
+
 window.clear  = ->
   $('#canvas').html ''
   print 'Canvas cleared'
-
-get editcoffee

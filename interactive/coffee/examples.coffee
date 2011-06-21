@@ -36,11 +36,6 @@ window.examples =
     file: "examples/spiral.coffee"
     type: "coffee"
     requirements: ["js/raphael.js"]
-  'editcoffee':
-    intro: "Code editor!"
-    file: "examples/ace.coffee"
-    type: "coffee"
-    requirements: ["js/ace/ace-uncompressed.js", "js/ace/mode-css.js", "js/ace/mode-coffee.js"]
 ###
   'aid':
     intro: "US Foreign Aid"
