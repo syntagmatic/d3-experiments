@@ -32,7 +32,7 @@ h2 {
 #code {
   position: absolute;
   width: 46%;
-  height: 96%;
+  height: 90%;
   top: 2%;
   right: 2%;
   background: #fff;
@@ -50,6 +50,9 @@ h2 {
   float: left;
   width: 33.333%;
 }
+.widget_wrap {
+  padding: 0 0 80px;
+}
 .editor {
   width: 100%;
   padding: 0px;
@@ -61,18 +64,26 @@ h2 {
   resize: none;
 }
 #editor {
-  position: absolute;
-  top: 0;
   height: 100%;
   width: 100%;
 }
-#run {
+#code .buttons {
   position: absolute;
-  bottom: 0;
+  bottom: -8%;
+  font-size: 24px;
   right: 0;
-  font-size: 200px;
-  padding: 4px;
   z-index: 10;
+}
+#code .buttons div {
+  float: left;
+  padding: 4px;
+  margin: 0 8px;
+  background: #ddd;
+}
+#code .buttons div:hover {
+  cursor: pointer;
+  color: #fff;
+  background: #333;
 }
 #input {
   height: 29%;

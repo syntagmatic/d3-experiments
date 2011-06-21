@@ -27,3 +27,7 @@ $ ->
     do clear
     code = editor.getSession().getValue()
     run code
+  $('#clear').click ->
+    do clear
+  $('#style').click ->
+    do css
