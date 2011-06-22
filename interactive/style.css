@@ -35,9 +35,6 @@ h2 {
   height: 90%;
   top: 2%;
   right: 2%;
-  background: #fff;
-  background: rgba(244, 243, 242, 0.6);
-  border: 2px solid #bbb;
 }
 #console {
   position: absolute;
@@ -62,6 +59,9 @@ h2 {
   font-family: Consolas, Monaco, "Lucida Console", monospace;
   overflow: auto;
   resize: none;
+  background: #fff;
+  background: rgba(244, 243, 242, 0.6);
+  border: 2px solid #bbb;
 }
 #editor {
   height: 100%;
@@ -100,7 +100,7 @@ h2 {
 .error { color: #f32;  font-weight: bold;}
 .print { font-weight: bold; }
 .normalOutput { }
-.tabcomplete {  background: #444;  position: relative;  top: 4px;  left: -2px;  padding: 2px;}
+.tabcomplete {  color: #efefef; background: #444;  position: relative;  top: 4px;  left: -2px;  padding: 2px;}
 .tabcomplete strong { color: #efefef;}
 p { margin: 0 0 14px 0;}
 a, a:visited { color: #000;  text-decoration: none;}

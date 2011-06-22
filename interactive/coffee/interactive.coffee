@@ -1,5 +1,11 @@
 ### Commands ###
 
+state =
+  activeModule: null
+  staleCoffee: false
+  mode: null
+  run: ->
+
 # load example
 window.get = (module, callback) ->
   switch module.type
@@ -22,6 +28,7 @@ window.help = (module) ->
 
 window.coffee = window.vim = (module) ->
   # open coffeescript editor
+  state.activeModule = module
   if !module.coffee
     get module, (module) ->
       editor.coffee()
@@ -36,6 +43,7 @@ window.css = ->
   editor.getSession().setValue $('#css').html()
 
 window.js = (module) ->
+  state.activeModule = module
   # open javascript editor
   if !module.js
     get module, (module) ->
@@ -47,6 +55,7 @@ window.js = (module) ->
 
 window.run = (module) ->
   # TODO: arguments
+  state.activeModule = module
   eval module.js
 
 window.clear  = ->
@@ -81,32 +90,52 @@ window.editor = ace.edit("editor")
 
 refocus()
 
-# stub run
-run = ->
-
 editor.coffee = ->
+  state.mode = 'coffee'
   CoffeeMode = require("ace/mode/coffee").Mode
   editor.getSession().setMode(new CoffeeMode())
-  run = (code) ->
-    eval CoffeeScript.compile code
+  state.run = (code) ->
+    state.activeModule.coffee = code
+    compiled = CoffeeScript.compile code
+    state.activeModule.js = compiled
+    state.staleCoffee = false
+    eval compiled
 
 editor.js = ->
+  state.mode = 'js'
   JsMode = require("ace/mode/javascript").Mode
   editor.getSession().setMode(new JsMode())
-  run = (code) ->
+  state.run = (code) ->
+    state.activeModule.js = code
+    state.staleCoffee = true
     eval code
 
 editor.style = ->
+  state.mode = 'style'
   StyleMode = require("ace/mode/css").Mode
   editor.getSession().setMode(new StyleMode())
-  run = (code) ->
+  state.run = (code) ->
     resetStyle code
 
+editor.getSession().on 'change', ->
+  if state.mode is 'style'
+    resetStyle editor.getSession().getValue()
+
 $ ->
+  $('#hide').toggle ->
+    $('#editor').fadeOut()
+    $(this).html 'show'
+  , ->
+    $('#editor').fadeIn()
+    $(this).html 'hide'
+  $('#js').click ->
+    js state.activeModule
+  $('#coffee').click ->
+    coffee state.activeModule
   $('#run').click ->
     do clear
     code = editor.getSession().getValue()
-    run code
+    state.run code
   $('#clear').click ->
     do clear
   $('#style').click ->
