@@ -6,6 +6,11 @@ window.examples =
     type: "coffee"
     requirements: ["../d3/d3.js", "../d3/d3.layout.js", "../d3/d3.geom.js"]
     help: "Usage: force [json file]"
+  'graph':
+    intro: "A force-directed layout. Click and drag nodes"
+    file: "examples/graph.coffee"
+    type: "coffee"
+    requirements: ["../d3/d3.js", "../d3/d3.layout.js", "../d3/d3.geom.js"]
   'chord':
     intro: "A network visualization. Hover over arcs to see connections"
     file: "examples/chord.coffee"
