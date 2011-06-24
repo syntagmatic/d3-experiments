@@ -9,7 +9,7 @@ style
 w = 960
 h = 500
 fill = d3.scale.category20()
-file = file or 'data/miserables.json'
+file = file or 'data/graph.json'
 
 vis = d3.select("#canvas")
         .append("svg:svg")
@@ -48,8 +48,17 @@ d3.json file, (json) ->
               "class": "node"
               "cx": d.x
               "cy": d.y
-              "r": 5
-            )
+              "r": 9
+              )
+
+  node.on "mouseover", (d,i) ->
+        d3.select(this)
+          .attr("r", 12)
+          .style("fill", "#444")
+  node.on "mouseout", (d,i) ->
+        d3.select(this)
+          .attr("r", 9)
+          .style("fill", (d) -> fill(d.group) )
 
   node.append("svg:title")
       .text( (d) -> d.name )
