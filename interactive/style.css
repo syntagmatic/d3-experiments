@@ -28,6 +28,7 @@ h2 {
   height: 100%;
   top: 0;
   left: 0;
+  overflow: hidden;
 }
 #code {
   position: absolute;
@@ -40,7 +41,7 @@ h2 {
   position: absolute;
   width: 50%;
   height: 40%;
-  top: 60%;
+  bottom: 0%;
   left: 0;
 }
 .widget {
@@ -86,14 +87,24 @@ h2 {
   background: #333;
 }
 #input {
-  height: 29%;
+  height: 20px;
+  padding: 2px 4px;
+  font-size: 16px;
+  position: absolute;
+  bottom: 0;
+  font-weight: bold;
 }
 #output {
   height: 70%;
+  width: 100%;
+  position: absolute;
+  bottom: 26px;
   overflow: auto;
   font-family: Consolas, Monaco, "Lucida Console", monospace;
-  background: #f4f3f2;
-  background: rgba(244,243,242,0.85);
+  background: #efeeec;
+  background: rgba(214,213,212,0.85);
+  padding: 4px;
+  border: 2px solid #bbb;
 }
 
 .input { color: #1f77b4; font-weight: bold; padding-top: 12px;}

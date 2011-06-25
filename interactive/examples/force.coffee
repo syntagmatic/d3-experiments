@@ -9,7 +9,7 @@ style
 w = 960
 h = 500
 fill = d3.scale.category20()
-file = file or 'data/graph.json'
+file = file or 'data/miserables.json'
 
 vis = d3.select("#canvas")
         .append("svg:svg")

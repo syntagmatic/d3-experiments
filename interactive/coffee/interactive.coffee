@@ -31,11 +31,11 @@ window.coffee = window.vim = (module) ->
   state.activeModule = module
   if !module.coffee
     get module, (module) ->
-      editor.coffee()
-      editor.getSession().setValue module.coffee
+      coffee module
     return
   editor.coffee()
   editor.getSession().setValue module.coffee
+  setTimeout (-> editor.gotoLine(0)), 20
 
 window.css = ->
   # open css editor
@@ -47,11 +47,11 @@ window.js = (module) ->
   # open javascript editor
   if !module.js
     get module, (module) ->
-      editor.js()
-      editor.getSession().setValue module.js
+      js module
     return
   editor.js()
   editor.getSession().setValue module.js
+  setTimeout (-> editor.gotoLine(0)), 20
 
 window.run = (module) ->
   # TODO: arguments
@@ -140,3 +140,10 @@ $ ->
     do clear
   $('#style').click ->
     do css
+  $('#input').focus ->
+    $('#output').show()
+  $('#input').blur ->
+    setTimeout ->
+      if not $('#input').is(":focus")
+        $('#output').fadeOut()
+    , 30
