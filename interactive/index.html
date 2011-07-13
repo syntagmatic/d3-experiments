@@ -4,41 +4,53 @@
 <meta charset="utf-8">
 <title>d3.js Playground in CoffeeScript</title>
 <link rel="stylesheet" href="style.css" type="text/css" media="screen">
-<style type="text/css" id="styles"/>
+<style type="text/css" id="css"/>body {
+  background: #f4f3f2;
+  color: #222;
+}
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/shell.js"></script>
 <script type="text/javascript" src="js/require.js"></script>
-<script type="text/javascript" src="../d3/d3.js"></script>
 <script type="text/javascript" src="js/coffee-script.js"></script>
+<script type="text/coffeescript" src="coffee/examples.coffee"></script>
+
+<script type="text/javascript" src="js/ace/ace-uncompressed.js"></script>
+<script type="text/javascript" src="js/ace/mode-css.js"></script>
+<script type="text/javascript" src="js/ace/mode-javascript.js"></script>
+<script type="text/javascript" src="js/ace/mode-coffee.js"></script>
 <script type="text/coffeescript" src="coffee/interactive.coffee"></script>
 </head>
 <body onload="init()">
 
-<div id="console">
+<div id="canvas"></div>
+
+
+<div class="widget" id="console">
   <div id="output">
-    <div class="print">
-      <p>This is d3 interactive.</p>
-      <p>Examples: <span id="examples"></span></p>
-      <p>Type 'do [example]' to view one, such as: <span class="print">do force</span></p>
+    <p>Try <strong><a href="http://mbostock.github.com/d3/" target="_blank">d3.js</a></strong>, data-driven documents!</p>
+    <p>Enter these examples below:</p>
+    <p>
+      <strong id="examples" class="blue">coffee force</strong><br/>
+      <strong id="examples" class="blue">coffee stream</strong><br/>
+      <strong id="examples" class="blue">coffee spiral</strong>
+    </p>
+    <p>Click "run" after the examples been loaded.</p>
+  </div>
+  <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
+</div>
+<div class="widget" id="code">
+  <div class="widget_wrap">
+    <div id="editor" class="editor grey"></div>
+    <div class="buttons">
+      <div id="hide">hide</div>
+      <div id="js">js</div>
+      <div id="coffee">coffee</div>
+      <div id="style">styles</div>
+      <div id="clear">clear</div>
+      <div id="run">run</div>
     </div>
   </div>
-  <div id="input_wrap">
-    <textarea id="input" wrap="off" onkeydown="inputKeydown(event)" rows="1"></textarea>
-    </script>
-  </div>
 </div>
 
-<div id="dashboard" style="float:right;width:200px;margin:10px;position:relative;z-index:15;">
-  <div class="props">
-    <script type="text/template" id="input-element">
-      <%= key %>:<br/> <input type="text" name="<%= key %>" value="<%= value %>" /><br/>
-    </script>
-    <script type="text/template" id="slider-element">
-      <%= key %>:<br/> <input type="range"name="<%= key %>" value="<%= value %>" min="0" max="<%= max %>" step="<%= step %>"/><br/>
-    </script>
-  </div>
-</div>
-
-</div>
 </body></html>

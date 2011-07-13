@@ -1,70 +1,62 @@
+`
+var data; // loaded asynchronously
 
-require ["../d3/d3.geo.js"], ->
-  `
-  var data; // loaded asynchronously
+var path = d3.geo.path();
 
-  var path = d3.geo.path();
+var svg = d3.select("#canvas")
+  .append("svg:svg");
 
-  var svg = d3.select("body")
-    .append("svg:svg");
+var counties = svg.append("svg:g")
+    .attr("id", "counties")
+    .attr("class", "Blues");
 
-  var counties = svg.append("svg:g")
-      .attr("id", "counties")
-      .attr("class", "Blues");
+var states = svg.append("svg:g")
+    .attr("id", "states");
 
-  var states = svg.append("svg:g")
-      .attr("id", "states");
+d3.json("data/us-counties.json", function(json) {
+  counties.selectAll("path")
+      .data(json.features)
+    .enter().append("svg:path")
+      .attr("class", data ? quantize : null)
+      .attr("d", path);
+});
 
-  d3.json("data/us-counties.json", function(json) {
-    counties.selectAll("path")
-        .data(json.features)
-      .enter().append("svg:path")
-        .attr("class", data ? quantize : null)
-        .attr("d", path);
-  });
+d3.json("data/us-states.json", function(json) {
+  states.selectAll("path")
+      .data(json.features)
+    .enter().append("svg:path")
+      .attr("d", path);
+});
 
-  d3.json("data/us-states.json", function(json) {
-    states.selectAll("path")
-        .data(json.features)
-      .enter().append("svg:path")
-        .attr("d", path);
-  });
+d3.json("data/unemployment.json", function(json) {
+  data = json;
+  counties.selectAll("path")
+      .attr("class", quantize);
+});
 
-  d3.json("data/unemployment.json", function(json) {
-    data = json;
-    counties.selectAll("path")
-        .attr("class", quantize);
-  });
-
-  function quantize(d) {
-    return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
-  }
-  `
-  return
-
-style '
-svg {
-  width: 960px;
-  height: 500px;
+function quantize(d) {
+  return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
 }
+`
 
+addStyle '
 #counties path {
-  stroke: #222;
-  stroke-width: .25px;
+stroke: #222;
+stroke-width: .25px;
 }
 
 #states path {
-  fill: none;
-  stroke: #222;
-  stroke-width: 1.5px;
+fill: none;
+stroke: #222;
+stroke-width: 1.5px;
 }
 '
 
-style '
+addStyle '
 /*
- * This product includes color specifications and designs developed by Cynthia
- * Brewer (http://colorbrewer.org/).
- */
+* This product includes color specifications and designs developed by Cynthia
+* Brewer (http://colorbrewer.org/).
+*/
 .YlGn .q0-3{fill:rgb(247,252,185)}
 .YlGn .q1-3{fill:rgb(173,221,142)}
 .YlGn .q2-3{fill:rgb(49,163,84)}

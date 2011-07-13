@@ -44,7 +44,7 @@ var fill = d3.scale.ordinal()
 function drawTicks(chord, svg) {
   var ticks = svg.append("svg:g")
       .attr("class", "ticks")
-      .attr("opacity", 1)
+      .attr("opacity", 0.1)
     .selectAll("g")
       .data(chord.groups)
     .enter().append("svg:g")
@@ -55,6 +55,11 @@ function drawTicks(chord, svg) {
         return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
             + "translate(" + r1 + ",0)";
       });
+
+  svg.selectAll(".ticks")
+    .transition()
+      .delay(600)
+      .attr("opacity", 1)
 
   ticks.append("svg:line")
       .attr({
@@ -123,26 +128,27 @@ function render(chord) {
   return svg;
 }
 
-function rerender(chord, svg) {
-
+function removeTicks(chord, svg) {
   // remove ticks
   svg.selectAll(".ticks")
     .transition()
+      .each("end", function() { redrawArcsAndChords(chord,svg); })
       .delay(700)
-    .attr("opacity", 0);
+      .attr("opacity", 0.2)
+      .remove();
+}
 
+function redrawArcsAndChords(chord, svg) {
   var arcs = svg.selectAll('.arcs')
       .data(chord.groups)
       .transition()
         .duration(1700)
       .attrTween("d", arcTween);
 
-  drawTicks(chord,svg)
-    .attr("opacity", 0)
-    .transition()
-      .delay(1400)
-    .attr("opacity", 1);
-  
+  window.b = svg.select('.chord').selectAll('path');
+
+  var last = svg.select(".chord").selectAll("path")[0].length - 1
+
   svg.select(".chord")
     .selectAll("path")
       .data(chord.chords)
@@ -152,7 +158,14 @@ function rerender(chord, svg) {
       .style({
         "fill": function(d) { return fill(d.target.index); },
         "opacity": 1
-        });
+        })
+      .each("end", function(d,i) { if (i == last) drawTicks(chord, svg) });
+}
+
+function rerender(chord, svg) {
+
+  removeTicks(chord, svg);
+
 }
 
 var svg = render(chord);
