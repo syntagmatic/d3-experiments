@@ -1,5 +1,5 @@
 require ["../d3/d3.geo.js"], ->
-  xy = d3.geo.azimuthal().scale(240).mode("stereographic")
+  xy = d3.geo.mercator().scale(1200)
   chart = d3.select("body")
     .append("svg:svg")
   path = d3.geo.path().projection(xy)
@@ -14,8 +14,8 @@ require ["../d3/d3.geo.js"], ->
 
 style '
 svg {
-  width: 960px;
-  height: 500px;
+  width: 1060px;
+  height: 600px;
 }
 
 path {
