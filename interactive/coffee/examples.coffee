@@ -41,12 +41,17 @@ window.examples =
     file: "examples/spiral.coffee"
     type: "coffee"
     requirements: ["js/raphael.js"]
-###
   'aid':
     intro: "US Foreign Aid"
     file: "examples/aid.coffee"
     type: "coffee"
     requirements: ["../d3/d3.js", "../d3/d3.geo.js"]
+  'barAid':
+    intro: "US Foreign Aid"
+    file: "examples/barAid.coffee"
+    type: "coffee"
+    requirements: ["../d3/d3.js"]
+###
   'brain':
     intro: "Neural network with Brain.js"
     file: "examples/brain.coffee"
