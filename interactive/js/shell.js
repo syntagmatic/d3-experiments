@@ -684,7 +684,11 @@ function go(s,lang)
 
   if (lang === "coffee") {
     // Use CoffeeScript Compiler
-    question = CoffeeScript.compile(question);
+    try {
+      question = CoffeeScript.compile(question);
+    } catch (err) {
+      println(err, 'error');
+    }
     // Remove wrapping closure
     question = question.substring(14)
     question = question.substring(0,question.length-16);

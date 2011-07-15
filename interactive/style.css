@@ -22,12 +22,21 @@ h1 {
 h2 {
   font-size: 16px;
 }
+*.stretch {
+    display: block;
+    position:absolute;
+    height:auto;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
+    margin: 0;
+}
+#container {
+  margin-top: 30px;
+}
 #canvas {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  height:100%;
+  margin-bottom: 200px;
 }
 #code {
 }
@@ -59,23 +68,26 @@ h2 {
 #editor {
   height: 200px;
 }
+#topbar {
+  height: 24px;
+  width: 100%;
+  background: #333;
+  color: #efefef;
+}
 .buttons {
-  position: absolute;
-  top: -30px;
-  font-size: 16px;
-  right: 0;
-  z-index: 10;
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: bold;
 }
 .buttons div {
-  float: left;
-  padding: 2px 5px;
+  float: right;
+  padding: 0px 5px 2px;
+  height: 22px;
   margin: 0 8px;
-  background: #ddd;
 }
 .buttons div:hover {
   cursor: pointer;
-  color: #fff;
-  background: #333;
+  color: #2bf;
 }
 #input {
   height: 20px;
