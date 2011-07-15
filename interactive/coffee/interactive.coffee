@@ -123,10 +123,10 @@ editor.getSession().on 'change', ->
 
 $ ->
   $('#hide').toggle ->
-    $('#editor').fadeOut()
+    $('#widgets').height('0px')
     $(this).html 'show'
   , ->
-    $('#editor').fadeIn()
+    $('#widgets').height('200px')
     $(this).html 'hide'
   $('#js').click ->
     js state.activeModule
@@ -140,6 +140,7 @@ $ ->
     do clear
   $('#style').click ->
     do css
+###
   $('#input').focus ->
     $('#output').show()
   $('#input').blur ->
@@ -147,3 +148,4 @@ $ ->
       if not $('#input').is(":focus")
         $('#output').fadeOut()
     , 30
+###
