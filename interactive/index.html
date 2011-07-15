@@ -26,30 +26,30 @@
 <div id="canvas"></div>
 
 
-<div class="widget" id="console">
-  <div id="output">
-    <p>Try <strong><a href="http://mbostock.github.com/d3/" target="_blank">d3.js</a></strong>, data-driven documents!</p>
-    <p>Enter these examples below:</p>
-    <p>
-      <strong id="examples" class="blue">coffee force</strong><br/>
-      <strong id="examples" class="blue">coffee stream</strong><br/>
-      <strong id="examples" class="blue">coffee spiral</strong>
-    </p>
-    <p>Click "run" after the examples been loaded.</p>
+<div id="widgets">
+  <div class="buttons">
+    <div id="hide">hide</div>
+    <div id="js">js</div>
+    <div id="coffee">coffee</div>
+    <div id="style">styles</div>
+    <div id="clear">clear</div>
+    <div id="run">run</div>
   </div>
-  <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
-</div>
-<div class="widget" id="code">
-  <div class="widget_wrap">
-    <div id="editor" class="editor grey"></div>
-    <div class="buttons">
-      <div id="hide">hide</div>
-      <div id="js">js</div>
-      <div id="coffee">coffee</div>
-      <div id="style">styles</div>
-      <div id="clear">clear</div>
-      <div id="run">run</div>
+  <div class="widget" id="console">
+    <div id="output">
+      <p>Try <strong><a href="http://mbostock.github.com/d3/" target="_blank">d3.js</a></strong>, data-driven documents!</p>
+      <p>Enter these examples below:</p>
+      <p>
+        <strong id="examples" class="blue">coffee force</strong><br/>
+        <strong id="examples" class="blue">coffee stream</strong><br/>
+        <strong id="examples" class="blue">coffee spiral</strong>
+      </p>
+      <p>Click "run" after the examples been loaded.</p>
     </div>
+    <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
+  </div>
+  <div class="widget" id="code">
+    <div id="editor" class="editor grey"></div>
   </div>
 </div>
 
