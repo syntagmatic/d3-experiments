@@ -6,6 +6,19 @@ state =
   mode: null
   run: ->
 
+### Errors and Logging ###
+
+window.log = print
+
+# coffee compile
+
+coffee_compile = (code) ->
+  try
+    coffee_code = CoffeeScript.compile code
+    return coffee_code
+  catch err
+    println err, 'error'
+
 # load example
 window.get = (module, callback) ->
   switch module.type
@@ -16,7 +29,7 @@ window.get = (module, callback) ->
         success: (data) ->
           require module.requirements, ->
             module.coffee = data
-            module.js = CoffeeScript.compile data
+            module.js = coffee_compile data
             if callback
               callback module
             print module.intro
@@ -96,7 +109,7 @@ editor.coffee = ->
   editor.getSession().setMode(new CoffeeMode())
   state.run = (code) ->
     state.activeModule.coffee = code
-    compiled = CoffeeScript.compile code
+    compiled = coffee_compile code
     state.activeModule.js = compiled
     state.staleCoffee = false
     eval compiled
