@@ -1,18 +1,31 @@
 chart = d3.select("#canvas")
-minTime = 1946
+minTime = 1997
 maxTime = 2009
 t = minTime
 $('#canvas').append("<h2>" + t + "</h2><h1>US Foreign Economic Aid</h1><div class='clearfix'></div>")
 
-initAid = ->
-  d3.json "data/aid.json", (depts) ->
-    for dept, countries of depts
-      bar = chart.append("div").attr("class","bar")
-      bar.append("label").text(dept)
-      fillBar(countries, bar)
+d3.json "data/aid.json", (depts) ->
+  for dept, countries of depts
+    bar = chart.data(makeData(countries)).append("div").attr("class","bar")
+    bar.append("label").text(dept)
+    fillBar(countries, bar)
+    updateBars bar, makeData(countries)
 
 $("h2").bind "click", ->
   t += 1
+  $('body').trigger('updateBars')
+
+updateBars = (bar, data) ->
+  $('body').bind 'updateBars', ->
+    return null
+
+makeData = (countries) ->
+  countryList = []
+  for country, dates of countries
+    countryList.push
+      country: country
+      cash: dates[t]
+  return countryList
 
 fillBar = (countries, bar) ->
   barVal = 0
