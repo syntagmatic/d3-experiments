@@ -1,51 +1,63 @@
 chart = d3.select("#canvas")
-minTime = 1997
+minTime = 1946
 maxTime = 2009
 t = minTime
 $('#canvas').append("<h2>" + t + "</h2><h1>US Foreign Economic Aid</h1><div class='clearfix'></div>")
+
+countryList = []
+for masterCountry, num of countryTotals
+  countryList.push
+    country: masterCountry
+
+makeData = (countries) ->
+  for country, dates of countries
+    for i in countryList
+      if country is i.country
+        i.cash = dates[t]
+  return countryList
 
 d3.json "data/aid.json", (depts) ->
   for dept, countries of depts
     bar = chart.data(makeData(countries)).append("div").attr("class","bar")
     bar.append("label").text(dept)
-    fillBar(countries, bar)
-    updateBars bar, makeData(countries)
+    barInner = bar.append("div").attr("class","barInner")
+    bar.append("p")
+    bar.append("div").attr("class","clearfix")
+    fillBar(countries, bar, barInner)
+    updateBars countries, bar, barInner
 
 $("h2").bind "click", ->
-  t += 1
+  if t < maxTime
+    t += 1
   $('body').trigger('updateBars')
 
-updateBars = (bar, data) ->
+updateBars = (countries, bar, barInner) ->
   $('body').bind 'updateBars', ->
-    return null
+    barInner.selectAll("div").remove()
+    fillBar(countries, bar, barInner)
 
-makeData = (countries) ->
-  countryList = []
-  for country, dates of countries
-    countryList.push
-      country: country
-      cash: dates[t]
-  return countryList
-
-fillBar = (countries, bar) ->
+fillBar = (countries, bar, barInner) ->
   barVal = 0
+  $("h2").text(t)
   for country, dates of countries
-    $("h2").text(t)
     val = dates[t]
     barVal += val
-    makeSection(val, bar)
-  bar.append("p").text(barVal)
-  bar.append("div").attr("class","clearfix")
+    section = barInner.append("div")
+                      .attr("class","section")
+    makeSection(val, section, country)
+  bar.selectAll("p").text("$"+barVal)
 
-makeSection = (val, bar) ->
-  if val isnt null
-    if val*.0000008 < 1
-      newVal = 1
+makeSection = (val, section, country) ->
+    if val is null
+      section.style("display", "none")
     else
-      newVal = val*.0000008
-    bar.append("div")
-       .attr("class","section")
-       .style("width", newVal + "px")
+      if val*.00000095 < 1
+        newVal = 1
+      else
+        newVal = val*.00000095
+      section.style("width", newVal + "px")
+             .style("display","block")
+             .attr("title", country + ": $" + val)
   
 style
   '#canvas div':
@@ -54,11 +66,11 @@ style
     'float':'left'
     'border':'1px solid #ccc'
     'border-left':'0'
-    'height':'30px'
+    'height':'20px'
   '#canvas .bar':
     'margin-bottom':'5px'
     'background':'#eee'
-    'height':'30px'
+    'height':'20px'
   '.bar label':
     'float':'left'
     'padding':'0px 10px 0 0'
@@ -66,11 +78,13 @@ style
     'text-align':'right'
     'width':'150px'
     'color':'#999'
-    'height':'32px'
+    'height':'22px'
+  '.bar .barInner':
+    'float':'left'
   '.bar p':
     'float':'left'
     'padding-left':'5px'
-    'line-height':'32px'
+    'line-height':'22px'
     'margin':'0'
   'h2':
     'font-family':'impact, ariel, helvetica, sans-serif'
