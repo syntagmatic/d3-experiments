@@ -136,10 +136,10 @@ editor.getSession().on 'change', ->
 
 $ ->
   $('#hide').toggle ->
-    $('#widgets').height('0px')
+    $('#widgets').css('bottom', '-200px')
     $(this).html 'show'
   , ->
-    $('#widgets').height('200px')
+    $('#widgets').css('bottom', '0px')
     $(this).html 'hide'
   $('#js').click ->
     js state.activeModule

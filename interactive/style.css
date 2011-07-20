@@ -33,7 +33,7 @@ h2 {
     margin: 0;
 }
 #container {
-  margin-top: 30px;
+  margin-top: 24px;
 }
 #canvas {
   margin-bottom: 200px;
@@ -45,7 +45,7 @@ h2 {
 #widgets {
   position: fixed;
   bottom: 0;
-  height: 200px;
+  height: 224px;
   width: 100%;
 }
 .widget {
@@ -63,7 +63,7 @@ h2 {
   overflow: auto;
   resize: none;
   background: #fff;
-  background: rgba(244, 243, 242, 0.6);
+  background: rgba(244, 243, 242, 0.9);
 }
 #editor {
   height: 200px;
@@ -71,8 +71,10 @@ h2 {
 #topbar {
   height: 24px;
   width: 100%;
-  background: #333;
-  color: #efefef;
+  background: #222;
+  color: #fb6;
+  position: absolute:
+  top: -24px;
 }
 .buttons {
   font-size: 13px;
@@ -90,23 +92,26 @@ h2 {
   color: #2bf;
 }
 #input {
-  height: 20px;
-  padding: 2px 4px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0px 4px;
   font-size: 16px;
   position: absolute;
   bottom: 0;
   font-weight: bold;
+  background: #f9d8a0;
 }
 #output {
-  height: 175px;
+  height: 176px;
   width: 50%;
   position: absolute;
   overflow: auto;
   font-family: Consolas, Monaco, "Lucida Console", monospace;
   background: #efeeec;
   background: rgba(214,213,212,0.85);
+  color: #333;
 }
-
+#output p { padding-left: 4px;}
 .input { color: #1f77b4; font-weight: bold; padding-top: 12px;}
 .error { color: #f32;  font-weight: bold;}
 .print { font-weight: bold; }

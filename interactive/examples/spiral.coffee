@@ -13,7 +13,7 @@ for i in [1..80]
   circles.push paper.circle(posx(i),posy(i),size(i))
   .attr
     fill: color = Raphael.getColor()
-    opacity: 0.6
+    opacity: 0.9
     "stroke": "#333"
     "stroke-width": 1
     "stroke-opacity": 0

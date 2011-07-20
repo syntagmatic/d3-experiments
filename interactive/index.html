@@ -5,8 +5,8 @@
 <title>d3.js Playground in CoffeeScript</title>
 <link rel="stylesheet" href="style.css" type="text/css" media="screen">
 <style type="text/css" id="css"/>body {
-  background: #f4f3f2;
-  color: #222;
+  background: #333;
+  color: #f4f3f2;
 }
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -22,26 +22,25 @@
 <script type="text/coffeescript" src="coffee/interactive.coffee"></script>
 </head>
 <body onload="init()">
-<div id="topbar">
-  <div class="layout">
-
-  </div>
-  <div class="buttons">
-    <div id="hide">hide</div>
-    <div id="js">js</div>
-    <div id="coffee">coffee</div>
-    <div id="style">styles</div>
-    <div id="clear">clear</div>
-    <div id="run">run</div>
-  </div>
-</div>
-
 <div id="container" class="stretch">
 
   <div id="canvas" class="stretch"></div>
 
 
   <div id="widgets">
+    <div id="topbar">
+      <div class="layout">
+
+      </div>
+      <div class="buttons">
+        <div id="hide">hide</div>
+        <div id="js">js</div>
+        <div id="coffee">coffee</div>
+        <div id="style">styles</div>
+        <div id="clear">clear</div>
+        <div id="run">run</div>
+      </div>
+    </div>
     <div class="widget" id="console">
       <div id="output">
         <p>Try <strong><a href="http://mbostock.github.com/d3/" target="_blank">d3.js</a></strong>, data-driven documents!</p>
