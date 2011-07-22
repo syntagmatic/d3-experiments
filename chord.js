@@ -88,8 +88,7 @@ function render(chord) {
       .on({
         "mouseover": fade(.1),
         "mouseout": fade(1)
-        })
-      .each(stash);
+        });
 
   drawTicks(chord, svg);
 
@@ -122,10 +121,9 @@ function redrawArcsAndChords(chord, svg) {
       .data(chord.groups)
       .transition()
         .duration(1700)
-      .attrTween("d", arcTween)
-      .each(stash);
+      .attrTween("d", arcTween);
 
-  window.b = svg.select('.chord').selectAll('path');
+  //window.b = svg.select('.chord').selectAll('path');
 
   var last = svg.select(".chord").selectAll("path")[0].length - 1
 
@@ -155,12 +153,13 @@ function shuffle() {
 
     // Modify chord matrix
     var old_data = data;
-    data = [
-      [ rand(), rand(), rand(), rand()],
-      [ rand(), rand(), rand(), rand()],
-      [ rand(), rand(), rand(), rand()],
-      [ rand(), rand(), rand(), rand()]
-    ];
+    data = [];
+    for (var i=0; i<4; i++) {
+      data[i] = [];
+      for (var j=0; j<4; j++) {
+        data[i][j] = [rand(), old_data[i][j]];
+      }
+    }
     chord
     .matrix(data);
 
@@ -179,15 +178,8 @@ function rand() {
   return 10000*Math.random();
 }
 
-// Stash the old values for transition.
-function stash(d) {
-  d.startAngle0 = d.startAngle;
-  d.endAngle0 = d.endAngle;
-}
-
-// Doesn't actually tween
-function arcTween(d, i, a) {
-  var i = d3.interpolate({startAngle: a.startAngle0, endAngle: a.endAngle0}, a);
+function arcTween(d) {
+  var i = d3.interpolate({startAngle: d.startAngle0, endAngle: d.endAngle0}, d);
   return function(t) {  
     var b = i(t);
     var arc = d3.svg.arc()
