@@ -28,7 +28,7 @@ var chord2 = d3.layout.chord()
 
 var fill = d3.scale.ordinal()
     .domain(d3.range(4))
-    .range(["#000000", "#FFDD89", "#957244", "#F26223"]);
+    .range(["#000000", "#FFDD89", "#7f7c79", "#3399bb"]);
 
 var w = 480,
     h = 480,
