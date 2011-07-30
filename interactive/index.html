@@ -4,10 +4,7 @@
 <meta charset="utf-8">
 <title>d3.js Playground in CoffeeScript</title>
 <link rel="stylesheet" href="style.css" type="text/css" media="screen">
-<style type="text/css" id="css"/>body {
-  background: #333;
-  color: #f4f3f2;
-}
+<style type="text/css" id="css" />
 </style>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/shell.js"></script>
@@ -23,15 +20,9 @@
 </head>
 <body onload="init()">
 <div id="container" class="stretch">
-
   <div id="canvas" class="stretch"></div>
-
-
   <div id="widgets">
     <div id="topbar">
-      <div class="layout">
-
-      </div>
       <div class="buttons">
         <div id="hide">hide</div>
         <div id="js">js</div>
@@ -52,7 +43,12 @@
         </p>
         <p>Click "run" after the examples been loaded.</p>
       </div>
-      <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
+      <div id="in">
+        <div class="prompt editor blue">&gt;</div>
+        <div class="inputWrap">
+          <textarea id="input" class="editor blue" wrap="off" spellcheck="false" onkeydown="inputKeydown(event)" rows="1"></textarea>
+        </div>
+      </div>
     </div>
     <div class="widget" id="code">
       <div id="editor" class="editor grey"></div>

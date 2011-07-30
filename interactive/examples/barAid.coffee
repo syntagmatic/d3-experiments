@@ -1,13 +1,19 @@
+# Set up
 chart = d3.select("#canvas")
-minTime = 1976
+minTime = 1946
 maxTime = 2009
 t = minTime
-$('#canvas').append("<h2>" + t + "</h2><h1>US Foreign Economic Aid</h1><div class='clearfix'></div>")
+$('#canvas').append("<h2>" + t + "</h2><h1>US Foreign Economic Aid</h1><p id='countryTotal'></div><div class='clearfix'></div>")
 
-countryList = []
-for masterCountry, num of countryTotals
+# Some Data Structures
+window.countryList = []
+ct = 0
+for masterCountry of countryTotals
   countryList.push
     country: masterCountry
+    colorClass: "c"+ct
+    color: Raphael.getColor()
+  ct++
 
 makeData = (countries) ->
   for country, dates of countries
@@ -19,8 +25,9 @@ makeData = (countries) ->
 getCountryClass = (country) ->
   for c,i in countryList
     if country is c.country
-      return "c"+i
+      return c.colorClass
 
+# Init JSON and make each bar
 d3.json "data/aid.json", (depts) ->
   for dept, countries of depts
     bar = chart.data(makeData(countries)).append("div").attr("class","bar")
@@ -30,16 +37,7 @@ d3.json "data/aid.json", (depts) ->
     bar.append("div").attr("class","clearfix")
     fillBar(countries, bar, barInner)
     updateBars countries, bar, barInner
-
-$("h2").bind "click", ->
-  if t < maxTime
-    t += 1
-  $('body').trigger('updateBars')
-
-updateBars = (countries, bar, barInner) ->
-  $('body').bind 'updateBars', ->
-    barInner.selectAll("div").remove()
-    fillBar(countries, bar, barInner)
+    runHovers()
 
 fillBar = (countries, bar, barInner) ->
   barVal = 0
@@ -52,25 +50,53 @@ fillBar = (countries, bar, barInner) ->
                       .attr("class","section")
       makeSection(val, section, country)
   barInner.attr("width", scaleData(barVal) + "px")
-  bar.selectAll("p").text("$"+barVal)
+  bar.selectAll("p").text("$"+formatMoney(barVal))
 
+# Make each block within each bar
 makeSection = (val, section, country) ->
   newVal = scaleData(val)
   color = getCountryClass country
   section.style("width", newVal + "px")
-         .attr("title", country + ": $" + val)
-         .on("mouseover", highlight(color))
+         .attr("title", "$" + formatMoney(val))
          .classed color, true
 
-window.highlight = (color) ->
-  console.log 'high'
-  #$("."+color).css("background-color", "#551004")
+# Event Functions
+updateBars = (countries, bar, barInner) ->
+  $('body').bind 'updateBars', ->
+    barInner.selectAll("div").remove()
+    fillBar(countries, bar, barInner)
+    runHovers()
 
+# Helper Functions
 scaleData = (val) ->
   if val*.000000099999 < 1
     newVal = 1
   else
     newVal = val*.000000099999
+
+getOtherClass = (element, excludedClass) ->
+  classes = element.attr("className").split(" ")
+  for classA in classes
+    if classA isnt excludedClass
+      return classA
+
+# Event Binding
+$("h2").bind "click", ->
+  if t < maxTime
+    t += 1
+  $('body').trigger('updateBars')
+
+runHovers = ->
+  colorClass = ""
+  $('.section').bind "mouseenter", ->
+    colorClass = getOtherClass $(this), "section"
+    for c in countryList
+      if colorClass is c.colorClass
+        $('.'+colorClass).css({background:c.color})
+        $('#countryTotal').text(c.country)
+  .bind "mouseleave", ->
+    $('.'+colorClass).css({background:'transparent'})
+    $('#countryTotal').text('')
 
 style
   '#canvas div':
@@ -116,6 +142,13 @@ style
     'line-height':'43px'
     'height':'36px'
     'margin':'0px'
+  '#countryTotal':
+    'float':'right'
+    'line-height':'36px'
+    'height':'36px'
+    'text-align':'right'
+    'padding-right':'20px'
+    'margin':'0'
   '.clearfix':
     'clear':'both'
  
@@ -134,3 +167,15 @@ getNewAid = (d) ->
         if key.substring(6,8).length isnt 2
           date = makeDate(key)
           newAid[row.program_name][row.country_name][date] = val
+
+formatMoney = (val) ->
+  val = val.toString()
+  len = val.length
+  num_commas = Math.floor(len/3)- 1
+  newVal = val.substr(-3, 3)
+  #TODO: MAKE IT WORK YA
+  if num_commas > 0
+    for i in [1..num_commas]
+      pos = -(1+i)*3
+      newVal = val.substr(pos, 3) + "," + newVal
+  return newVal

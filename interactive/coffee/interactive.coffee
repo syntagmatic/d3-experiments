@@ -153,6 +153,7 @@ $ ->
     do clear
   $('#style').click ->
     do css
+
 ###
   $('#input').focus ->
     $('#output').show()

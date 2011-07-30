@@ -9,6 +9,7 @@ body {
   font-size:13px;
   min-width:960px;
   font-family: Helvetica, Arial, sans-serif;
+  background:#f8f8f8;
 }
 
 h1 {
@@ -45,8 +46,21 @@ h2 {
 #widgets {
   position: fixed;
   bottom: 0;
-  height: 224px;
+  height: 200px;
   width: 100%;
+}
+#widgets .resizer {
+position:absolute;
+top:-5px;
+width:30px;
+height:5px;
+padding-bottom:3px;
+background:#f2f2f2;
+color:#999;
+font-weight:bold;
+left:49%;
+line-height:0;
+text-align:center;
 }
 .widget {
   float: left;
@@ -69,17 +83,18 @@ h2 {
   height: 200px;
 }
 #topbar {
-  height: 24px;
+  height: 26px;
   width: 100%;
-  background: #222;
-  color: #fb6;
-  position: absolute:
-  top: -24px;
+  background: #333;
+  color: #ccc;
+  position: fixed;
+  top:0;
+  border-top:1px solid #000;
+  opacity:.9;
 }
 .buttons {
-  font-size: 13px;
-  line-height: 22px;
-  font-weight: bold;
+  font-size: 12px;
+  line-height: 24px;
 }
 .buttons div {
   float: right;
@@ -91,25 +106,42 @@ h2 {
   cursor: pointer;
   color: #2bf;
 }
-#input {
+#in {
   height: 24px;
   line-height: 24px;
-  padding: 0px 4px;
   font-size: 16px;
   position: absolute;
-  bottom: 0;
+  bottom:0px;
   font-weight: bold;
-  background: #fff;
+  width:50%;
+}
+#in .prompt {
+  float:left;
+  padding:0px 4px;
+  width:auto;
+}
+#in .inputWrap {
+  float:left;
+  width:97%
+}
+#in textarea {
+  padding:0px 4px;
+  height: 24px;
+  width:99%;
+  background: transparent;
+  line-height:24px;
+  font-size:16px;
+  font-weight:bold;
 }
 #output {
   height: 176px;
-  width: 50%;
+  width:49.5%;
+  padding-left:7px;
   position: absolute;
   overflow: auto;
   font-family: Consolas, Monaco, "Lucida Console", monospace;
-  background: #efeeec;
-  background: rgba(214,213,212,0.85);
   color: #333;
+  border-bottom:1px solid #f2f2f2;
 }
 #output p { padding-left: 4px;}
 .input { color: #1f77b4; font-weight: bold; padding-top: 12px;}
