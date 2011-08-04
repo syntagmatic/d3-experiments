@@ -1,6 +1,6 @@
 # Set up
 chart = d3.select("#canvas")
-minTime = 1946
+minTime = 1976
 maxTime = 2009
 t = minTime
 $('#canvas').append("<h2>" + t + "</h2><h1>US Foreign Economic Aid</h1><p id='countryTotal'></div><div class='clearfix'></div>")
@@ -8,11 +8,15 @@ $('#canvas').append("<h2>" + t + "</h2><h1>US Foreign Economic Aid</h1><p id='co
 # Some Data Structures
 window.countryList = []
 ct = 0
+window.yearlyTotals = []
 for masterCountry of countryTotals
   countryList.push
     country: masterCountry
     colorClass: "c"+ct
     color: Raphael.getColor()
+  yearlyTotals.push
+    country: masterCountry
+    years: {}
   ct++
 
 makeData = (countries) ->
@@ -20,6 +24,10 @@ makeData = (countries) ->
     for i in countryList
       if country is i.country
         i.cash = dates[t]
+    for b in yearlyTotals
+      if country is b.country
+        for u,v of dates
+          b.years[u] += v ? 0
   return countryList
 
 getCountryClass = (country) ->
@@ -57,7 +65,7 @@ makeSection = (val, section, country) ->
   newVal = scaleData(val)
   color = getCountryClass country
   section.style("width", newVal + "px")
-         .attr("title", "$" + formatMoney(val))
+         .attr("title", country + ": $" + formatMoney(val))
          .classed color, true
 
 # Event Functions
@@ -171,9 +179,8 @@ getNewAid = (d) ->
 formatMoney = (val) ->
   val = val.toString()
   len = val.length
-  num_commas = Math.floor(len/3)- 1
+  num_commas = Math.ceil(len/3)- 1
   newVal = val.substr(-3, 3)
-  #TODO: MAKE IT WORK YA
   if num_commas > 0
     for i in [1..num_commas]
       pos = -(1+i)*3
