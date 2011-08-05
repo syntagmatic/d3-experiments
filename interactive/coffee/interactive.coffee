@@ -39,16 +39,18 @@ window.help = (module) ->
   # TODO: formatting
   module.help
 
-window.coffee = window.vim = (module) ->
+window.coffee = window.vim = (module, callback) ->
   # open coffeescript editor
   state.activeModule = module
   if !module.coffee
     get module, (module) ->
-      coffee module
+      coffee module, callback
     return
   editor.coffee()
   editor.getSession().setValue module.coffee
   setTimeout (-> editor.gotoLine(0)), 20
+  if callback
+    callback module
 
 window.css = ->
   # open css editor
@@ -68,6 +70,11 @@ window.js = (module) ->
 
 window.run = (module) ->
   # TODO: arguments
+  if !module.coffee
+    coffee module, (module) ->
+      state.activeModule = module
+      eval module.js
+    return
   state.activeModule = module
   eval module.js
 
@@ -105,7 +112,7 @@ refocus()
 
 editor.coffee = ->
   state.mode = 'coffee'
-  CoffeeMode = require("ace/mode/coffee").Mode
+  CoffeeMode = requireSafe("ace/mode/coffee").Mode
   editor.getSession().setMode(new CoffeeMode())
   state.run = (code) ->
     state.activeModule.coffee = code
@@ -116,7 +123,7 @@ editor.coffee = ->
 
 editor.js = ->
   state.mode = 'js'
-  JsMode = require("ace/mode/javascript").Mode
+  JsMode = requireSafe("ace/mode/javascript").Mode
   editor.getSession().setMode(new JsMode())
   state.run = (code) ->
     state.activeModule.js = code
@@ -125,7 +132,7 @@ editor.js = ->
 
 editor.style = ->
   state.mode = 'style'
-  StyleMode = require("ace/mode/css").Mode
+  StyleMode = requireSafe("ace/mode/css").Mode
   editor.getSession().setMode(new StyleMode())
   state.run = (code) ->
     resetStyle code

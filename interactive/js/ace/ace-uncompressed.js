@@ -29,7 +29,7 @@
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
@@ -38,7 +38,7 @@
 /**
  * Define a module along with a payload
  * @param module a name for the payload
- * @param payload a function to call with (require, exports, module) params
+ * @param payload a function to call with (requireSafe, exports, module) params
  */
  
 (function() {
@@ -68,13 +68,13 @@ window.define = _define;
 /**
  * Get at functionality define()ed using the function above
  */
-var _require = function(module, callback) {
+var _requireSafe = function(module, callback) {
     if (Object.prototype.toString.call(module) === "[object Array]") {
         var params = [];
         for (var i = 0, l = module.length; i < l; ++i) {
             var dep = lookup(module[i]);
-            if (!dep && _require.original)
-                return _require.original.apply(window, arguments);
+            if (!dep && _requireSafe.original)
+                return _requireSafe.original.apply(window, arguments);
             params.push(dep);
         };
         if (callback) {
@@ -84,8 +84,8 @@ var _require = function(module, callback) {
 
     if (typeof module === 'string') {
         var payload = lookup(module);
-        if (!payload && _require.original)
-            return _require.original.apply(window, arguments);
+        if (!payload && _requireSafe.original)
+            return _requireSafe.original.apply(window, arguments);
         
         if (callback) {
             callback();
@@ -95,11 +95,11 @@ var _require = function(module, callback) {
     };
 }
 
-if (window.require)
-    _require.original = window.require;
+if (window.requireSafe)
+    _requireSafe.original = window.requireSafe;
     
-window.require = _require;
-require.packaged = true;
+window.requireSafe = _requireSafe;
+requireSafe.packaged = true;
 
 /**
  * Internal function to lookup moduleNames and resolve them by calling the
@@ -114,7 +114,7 @@ var lookup = function(moduleName) {
 
     if (typeof module === 'function') {
         var exports = {};
-        module(require, exports, { id: moduleName, uri: '' });
+        module(requireSafe, exports, { id: moduleName, uri: '' });
         // cache the resulting module object for next time
         define.modules[moduleName] = exports;
         return exports;
@@ -156,13 +156,13 @@ var lookup = function(moduleName) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/fixoldbrowsers', function(require, exports, module) {
+define('pilot/fixoldbrowsers', function(requireSafe, exports, module) {
 
 // Should be the first thing, as we want to use that in this module.
 if (!Function.prototype.bind) {
@@ -650,36 +650,36 @@ exports.globalsLoaded = true;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/index', function(require, exports, module) {
+define('pilot/index', function(requireSafe, exports, module) {
 
 exports.startup = function(data, reason) {
-    require('pilot/fixoldbrowsers');
+    requireSafe('pilot/fixoldbrowsers');
 
-    require('pilot/types/basic').startup(data, reason);
-    require('pilot/types/command').startup(data, reason);
-    require('pilot/types/settings').startup(data, reason);
-    require('pilot/commands/settings').startup(data, reason);
-    require('pilot/commands/basic').startup(data, reason);
-    // require('pilot/commands/history').startup(data, reason);
-    require('pilot/settings/canon').startup(data, reason);
-    require('pilot/canon').startup(data, reason);
+    requireSafe('pilot/types/basic').startup(data, reason);
+    requireSafe('pilot/types/command').startup(data, reason);
+    requireSafe('pilot/types/settings').startup(data, reason);
+    requireSafe('pilot/commands/settings').startup(data, reason);
+    requireSafe('pilot/commands/basic').startup(data, reason);
+    // requireSafe('pilot/commands/history').startup(data, reason);
+    requireSafe('pilot/settings/canon').startup(data, reason);
+    requireSafe('pilot/canon').startup(data, reason);
 };
 
 exports.shutdown = function(data, reason) {
-    require('pilot/types/basic').shutdown(data, reason);
-    require('pilot/types/command').shutdown(data, reason);
-    require('pilot/types/settings').shutdown(data, reason);
-    require('pilot/commands/settings').shutdown(data, reason);
-    require('pilot/commands/basic').shutdown(data, reason);
-    // require('pilot/commands/history').shutdown(data, reason);
-    require('pilot/settings/canon').shutdown(data, reason);
-    require('pilot/canon').shutdown(data, reason);
+    requireSafe('pilot/types/basic').shutdown(data, reason);
+    requireSafe('pilot/types/command').shutdown(data, reason);
+    requireSafe('pilot/types/settings').shutdown(data, reason);
+    requireSafe('pilot/commands/settings').shutdown(data, reason);
+    requireSafe('pilot/commands/basic').shutdown(data, reason);
+    // requireSafe('pilot/commands/history').shutdown(data, reason);
+    requireSafe('pilot/settings/canon').shutdown(data, reason);
+    requireSafe('pilot/canon').shutdown(data, reason);
 };
 
 
@@ -716,15 +716,15 @@ exports.shutdown = function(data, reason) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/types/basic', function(require, exports, module) {
+define('pilot/types/basic', function(requireSafe, exports, module) {
 
-var types = require("pilot/types");
+var types = requireSafe("pilot/types");
 var Type = types.Type;
 var Conversion = types.Conversion;
 var Status = types.Status;
@@ -1041,13 +1041,13 @@ exports.shutdown = function() {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/types', function(require, exports, module) {
+define('pilot/types', function(requireSafe, exports, module) {
 
 /**
  * Some types can detect validity, that is to say they can distinguish between
@@ -1324,17 +1324,17 @@ exports.getType = function(typeSpec) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/types/command', function(require, exports, module) {
+define('pilot/types/command', function(requireSafe, exports, module) {
 
-var canon = require("pilot/canon");
-var SelectionType = require("pilot/types/basic").SelectionType;
-var types = require("pilot/types");
+var canon = requireSafe("pilot/canon");
+var SelectionType = requireSafe("pilot/types/basic").SelectionType;
+var types = requireSafe("pilot/types");
 
 
 /**
@@ -1398,22 +1398,22 @@ exports.shutdown = function() {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/canon', function(require, exports, module) {
+define('pilot/canon', function(requireSafe, exports, module) {
 
-var console = require('pilot/console');
-var Trace = require('pilot/stacktrace').Trace;
-var oop = require('pilot/oop');
-var EventEmitter = require('pilot/event_emitter').EventEmitter;
-var catalog = require('pilot/catalog');
-var Status = require('pilot/types').Status;
-var types = require('pilot/types');
-var lang = require('pilot/lang');
+var console = requireSafe('pilot/console');
+var Trace = requireSafe('pilot/stacktrace').Trace;
+var oop = requireSafe('pilot/oop');
+var EventEmitter = requireSafe('pilot/event_emitter').EventEmitter;
+var catalog = requireSafe('pilot/catalog');
+var Status = requireSafe('pilot/types').Status;
+var types = requireSafe('pilot/types');
+var lang = requireSafe('pilot/lang');
 
 /*
 // TODO: this doesn't belong here - or maybe anywhere?
@@ -1572,9 +1572,9 @@ oop.implement(exports, EventEmitter);
 
 
 /**
- * Current requirements are around displaying the command line, and provision
+ * Current requireSafements are around displaying the command line, and provision
  * of a 'history' command and cursor up|down navigation of history.
- * <p>Future requirements could include:
+ * <p>Future requireSafements could include:
  * <ul>
  * <li>Multiple command lines
  * <li>The ability to recall key presses (i.e. requests with no output) which
@@ -1583,7 +1583,7 @@ oop.implement(exports, EventEmitter);
  * browser local storage.
  * </ul>
  * <p>The execute() command doesn't really live here, except as part of that
- * last future requirement, and because it doesn't really have anywhere else to
+ * last future requireSafement, and because it doesn't really have anywhere else to
  * live.
  */
 
@@ -1739,12 +1739,12 @@ exports.Request = Request;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
-define('pilot/console', function(require, exports, module) {
+define('pilot/console', function(requireSafe, exports, module) {
     
 /**
  * This object represents a "safe console" object that forwards debugging
@@ -1782,10 +1782,10 @@ if (typeof(window) === 'undefined') {
 }
 
 });
-define('pilot/stacktrace', function(require, exports, module) {
+define('pilot/stacktrace', function(requireSafe, exports, module) {
     
-var ua = require("pilot/useragent");
-var console = require('pilot/console');
+var ua = requireSafe("pilot/useragent");
+var console = requireSafe('pilot/console');
 
 // Changed to suit the specific needs of running within Skywriter
 
@@ -2145,13 +2145,13 @@ exports.Trace.prototype.log = function(lines) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/useragent', function(require, exports, module) {
+define('pilot/useragent', function(requireSafe, exports, module) {
 
 var os = (navigator.platform.match(/mac|win|linux/i) || ["other"])[0].toLowerCase();
 var ua = navigator.userAgent;
@@ -2242,13 +2242,13 @@ exports.getOS = function() {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/oop', function(require, exports, module) {
+define('pilot/oop', function(requireSafe, exports, module) {
 
 exports.inherits = (function() {
     var tempCtor = function() {};
@@ -2304,13 +2304,13 @@ exports.implement = function(proto, mixin) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/event_emitter', function(require, exports, module) {
+define('pilot/event_emitter', function(requireSafe, exports, module) {
 
 var EventEmitter = {};
 
@@ -2394,13 +2394,13 @@ exports.EventEmitter = EventEmitter;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/catalog', function(require, exports, module) {
+define('pilot/catalog', function(requireSafe, exports, module) {
 
 
 var extensionSpecs = {};
@@ -2459,13 +2459,13 @@ exports.getExtensionSpecs = function() {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/lang', function(require, exports, module) {
+define('pilot/lang', function(requireSafe, exports, module) {
 
 exports.stringReverse = function(string) {
     return string.split("").reverse().join("");
@@ -2570,18 +2570,18 @@ exports.deferredCall = function(fcn) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/types/settings', function(require, exports, module) {
+define('pilot/types/settings', function(requireSafe, exports, module) {
 
-var SelectionType = require('pilot/types/basic').SelectionType;
-var DeferredType = require('pilot/types/basic').DeferredType;
-var types = require('pilot/types');
-var settings = require('pilot/settings').settings;
+var SelectionType = requireSafe('pilot/types/basic').SelectionType;
+var DeferredType = requireSafe('pilot/types/basic').DeferredType;
+var types = requireSafe('pilot/types');
+var settings = requireSafe('pilot/settings').settings;
 
 
 /**
@@ -2712,23 +2712,23 @@ exports.shutdown = function(data, reason) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/settings', function(require, exports, module) {
+define('pilot/settings', function(requireSafe, exports, module) {
 
 /**
  * This plug-in manages settings.
  */
 
-var console = require('pilot/console');
-var oop = require('pilot/oop');
-var types = require('pilot/types');
-var EventEmitter = require('pilot/event_emitter').EventEmitter;
-var catalog = require('pilot/catalog');
+var console = requireSafe('pilot/console');
+var oop = requireSafe('pilot/oop');
+var types = requireSafe('pilot/types');
+var EventEmitter = requireSafe('pilot/event_emitter').EventEmitter;
+var catalog = requireSafe('pilot/catalog');
 
 var settingExtensionSpec = {
     name: 'setting',
@@ -2816,7 +2816,7 @@ oop.implement(Setting.prototype, EventEmitter);
  * A base class for all the various methods of storing settings.
  * <p>Usage:
  * <pre>
- * // Create manually, or require 'settings' from the container.
+ * // Create manually, or requireSafe 'settings' from the container.
  * // This is the manual version:
  * var settings = plugins.catalog.getObject('settings');
  * // Add a new setting
@@ -3035,13 +3035,13 @@ exports.CookiePersister = CookiePersister;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/commands/settings', function(require, exports, module) {
+define('pilot/commands/settings', function(requireSafe, exports, module) {
 
 
 var setCommandSpec = {
@@ -3125,7 +3125,7 @@ var unsetCommandSpec = {
     }
 };
 
-var canon = require('pilot/canon');
+var canon = requireSafe('pilot/canon');
 
 exports.startup = function(data, reason) {
     canon.addCommand(setCommandSpec);
@@ -3170,17 +3170,17 @@ exports.shutdown = function(data, reason) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/commands/basic', function(require, exports, module) {
+define('pilot/commands/basic', function(requireSafe, exports, module) {
 
 
-var checks = require("pilot/typecheck");
-var canon = require('pilot/canon');
+var checks = requireSafe("pilot/typecheck");
+var canon = requireSafe('pilot/canon');
 
 /**
  * 
@@ -3395,7 +3395,7 @@ var messages = [
 ];
 
 
-var canon = require('pilot/canon');
+var canon = requireSafe('pilot/canon');
 
 exports.startup = function(data, reason) {
     canon.addCommand(helpCommandSpec);
@@ -3444,13 +3444,13 @@ exports.shutdown = function(data, reason) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/typecheck', function(require, exports, module) {
+define('pilot/typecheck', function(requireSafe, exports, module) {
 
 var objectToString = Object.prototype.toString;
 
@@ -3523,13 +3523,13 @@ exports.isFunction = function(it) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/settings/canon', function(require, exports, module) {
+define('pilot/settings/canon', function(requireSafe, exports, module) {
 
 
 var historyLengthSetting = {
@@ -3580,15 +3580,15 @@ exports.shutdown = function(data, reason) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/plugin_manager', function(require, exports, module) {
+define('pilot/plugin_manager', function(requireSafe, exports, module) {
 
-var Promise = require("pilot/promise").Promise;
+var Promise = requireSafe("pilot/promise").Promise;
 
 exports.REASONS = {
     APP_STARTUP: 1,
@@ -3623,7 +3623,7 @@ exports.Plugin.prototype = {
             pr.resolve(this);
             return pr;
         }
-        require([this.name], function(pluginModule) {
+        requireSafe([this.name], function(pluginModule) {
             if (pluginModule.install) {
                 pluginModule.install(data, reason);
             }
@@ -3639,7 +3639,7 @@ exports.Plugin.prototype = {
             pr.resolve(this);
             return pr;
         }
-        require([this.name], function(pluginModule) {
+        requireSafe([this.name], function(pluginModule) {
             if (pluginModule.register) {
                 pluginModule.register(data, reason);
             }
@@ -3656,7 +3656,7 @@ exports.Plugin.prototype = {
             pr.resolve(this);
             return pr;
         }
-        require([this.name], function(pluginModule) {
+        requireSafe([this.name], function(pluginModule) {
             if (pluginModule.startup) {
                 pluginModule.startup(data, reason);
             }
@@ -3670,7 +3670,7 @@ exports.Plugin.prototype = {
         if (this.status != this.STARTED) {
             return;
         }
-        pluginModule = require(this.name);
+        pluginModule = requireSafe(this.name);
         if (pluginModule.shutdown) {
             pluginModule.shutdown(data, reason);
         }
@@ -3739,16 +3739,16 @@ exports.catalog = new exports.PluginCatalog();
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/promise', function(require, exports, module) {
+define('pilot/promise', function(requireSafe, exports, module) {
 
-var console = require("pilot/console");
-var Trace = require('pilot/stacktrace').Trace;
+var console = requireSafe("pilot/console");
+var Trace = requireSafe('pilot/stacktrace').Trace;
 
 /**
  * A promise can be in one of 2 states.
@@ -4002,16 +4002,16 @@ exports._recent = _recent;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/environment', function(require, exports, module) {
+define('pilot/environment', function(requireSafe, exports, module) {
 
 
-var settings = require("pilot/settings").settings;
+var settings = requireSafe("pilot/settings").settings;
 
 /**
  * Create an environment object
@@ -4060,29 +4060,29 @@ exports.create = create;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/editor', function(require, exports, module) {
+define('ace/editor', function(requireSafe, exports, module) {
 
-require("pilot/fixoldbrowsers");
+requireSafe("pilot/fixoldbrowsers");
 
-var oop = require("pilot/oop");
-var event = require("pilot/event");
-var lang = require("pilot/lang");
-var useragent = require("pilot/useragent");
-var TextInput = require("ace/keyboard/textinput").TextInput;
-var MouseHandler = require("ace/mouse_handler").MouseHandler;
-//var TouchHandler = require("ace/touch_handler").TouchHandler;
-var KeyBinding = require("ace/keyboard/keybinding").KeyBinding;
-var EditSession = require("ace/edit_session").EditSession;
-var Search = require("ace/search").Search;
-var BackgroundTokenizer = require("ace/background_tokenizer").BackgroundTokenizer;
-var Range = require("ace/range").Range;
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
+var oop = requireSafe("pilot/oop");
+var event = requireSafe("pilot/event");
+var lang = requireSafe("pilot/lang");
+var useragent = requireSafe("pilot/useragent");
+var TextInput = requireSafe("ace/keyboard/textinput").TextInput;
+var MouseHandler = requireSafe("ace/mouse_handler").MouseHandler;
+//var TouchHandler = requireSafe("ace/touch_handler").TouchHandler;
+var KeyBinding = requireSafe("ace/keyboard/keybinding").KeyBinding;
+var EditSession = requireSafe("ace/edit_session").EditSession;
+var Search = requireSafe("ace/search").Search;
+var BackgroundTokenizer = requireSafe("ace/background_tokenizer").BackgroundTokenizer;
+var Range = requireSafe("ace/range").Range;
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
 
 var Editor =function(renderer, session) {
     var container = renderer.getContainerElement();
@@ -4325,7 +4325,7 @@ var Editor =function(renderer, session) {
         }
 
         // move text input over the cursor
-        // this is required for iOS and IME
+        // this is requireSafed for iOS and IME
         this.renderer.moveTextAreaToCursor(this.textInput.getElement());
 
         this.$highlightBrackets();
@@ -5155,17 +5155,17 @@ exports.Editor = Editor;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/event', function(require, exports, module) {
+define('pilot/event', function(requireSafe, exports, module) {
 
-var keys = require("pilot/keys");
-var useragent = require("pilot/useragent");
-var dom = require("pilot/dom");
+var keys = requireSafe("pilot/keys");
+var useragent = requireSafe("pilot/useragent");
+var dom = requireSafe("pilot/dom");
 
 exports.addListener = function(elem, type, callback) {
     if (elem.addEventListener) {
@@ -5463,9 +5463,9 @@ For more information about SproutCore, visit http://www.sproutcore.com
 
 // Most of the following code is taken from SproutCore with a few changes.
 
-define('pilot/keys', function(require, exports, module) {
+define('pilot/keys', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
+var oop = requireSafe("pilot/oop");
 
 /**
  * Helper functions and hashes for key handling.
@@ -5575,13 +5575,13 @@ oop.mixin(exports, Keys);
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('pilot/dom', function(require, exports, module) {
+define('pilot/dom', function(requireSafe, exports, module) {
 
 exports.setText = function(elem, text) {
     if (elem.innerText !== undefined) {
@@ -5812,16 +5812,16 @@ exports.setSelectionEnd = function(textarea, end) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/keyboard/textinput', function(require, exports, module) {
+define('ace/keyboard/textinput', function(requireSafe, exports, module) {
 
-var event = require("pilot/event");
-var useragent = require("pilot/useragent");
+var event = requireSafe("pilot/event");
+var useragent = requireSafe("pilot/useragent");
 
 var TextInput = function(parentNode, host) {
 
@@ -6056,15 +6056,15 @@ exports.TextInput = TextInput;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/mouse_handler', function(require, exports, module) {
+define('ace/mouse_handler', function(requireSafe, exports, module) {
 
-var event = require("pilot/event");
+var event = requireSafe("pilot/event");
 
 var MouseHandler = function(editor) {
     this.editor = editor;
@@ -6224,23 +6224,23 @@ exports.MouseHandler = MouseHandler;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/keyboard/keybinding', function(require, exports, module) {
+define('ace/keyboard/keybinding', function(requireSafe, exports, module) {
 
-var useragent = require("pilot/useragent");
-var keyUtil  = require("pilot/keys");
-var event = require("pilot/event");
-var settings  = require("pilot/settings").settings;
-var HashHandler = require("ace/keyboard/hash_handler").HashHandler;
-var default_mac = require("ace/keyboard/keybinding/default_mac").bindings;
-var default_win = require("ace/keyboard/keybinding/default_win").bindings;
-var canon = require("pilot/canon");
-require("ace/commands/default_commands");
+var useragent = requireSafe("pilot/useragent");
+var keyUtil  = requireSafe("pilot/keys");
+var event = requireSafe("pilot/event");
+var settings  = requireSafe("pilot/settings").settings;
+var HashHandler = requireSafe("ace/keyboard/hash_handler").HashHandler;
+var default_mac = requireSafe("ace/keyboard/keybinding/default_mac").bindings;
+var default_win = requireSafe("ace/keyboard/keybinding/default_win").bindings;
+var canon = requireSafe("pilot/canon");
+requireSafe("ace/commands/default_commands");
 
 var KeyBinding = function(editor, config) {
     this.$editor = editor;
@@ -6332,15 +6332,15 @@ exports.KeyBinding = KeyBinding;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/keyboard/hash_handler', function(require, exports, module) {
+define('ace/keyboard/hash_handler', function(requireSafe, exports, module) {
 
-var keyUtil  = require("pilot/keys");
+var keyUtil  = requireSafe("pilot/keys");
 
 function HashHandler(config) {
     this.setConfig(config);
@@ -6447,13 +6447,13 @@ exports.HashHandler = HashHandler;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/keyboard/keybinding/default_mac', function(require, exports, module) {
+define('ace/keyboard/keybinding/default_mac', function(requireSafe, exports, module) {
 
 exports.bindings = {
     "selectall": "Command-A",
@@ -6543,13 +6543,13 @@ exports.bindings = {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/keyboard/keybinding/default_win', function(require, exports, module) {
+define('ace/keyboard/keybinding/default_win', function(requireSafe, exports, module) {
 
 exports.bindings = {
     "selectall": "Ctrl-A",
@@ -6632,16 +6632,16 @@ exports.bindings = {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/commands/default_commands', function(require, exports, module) {
+define('ace/commands/default_commands', function(requireSafe, exports, module) {
 
-var lang = require("pilot/lang");
-var canon = require("pilot/canon");
+var lang = requireSafe("pilot/lang");
+var canon = requireSafe("pilot/canon");
 
 canon.addCommand({
     name: "null",
@@ -6920,21 +6920,21 @@ canon.addCommand({
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/edit_session', function(require, exports, module) {
+define('ace/edit_session', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
-var lang = require("pilot/lang");
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
-var Selection = require("ace/selection").Selection;
-var TextMode = require("ace/mode/text").Mode;
-var Range = require("ace/range").Range;
-var Document = require("ace/document").Document;
+var oop = requireSafe("pilot/oop");
+var lang = requireSafe("pilot/lang");
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
+var Selection = requireSafe("ace/selection").Selection;
+var TextMode = requireSafe("ace/mode/text").Mode;
+var Range = requireSafe("ace/range").Range;
+var Document = requireSafe("ace/document").Document;
 
 var NO_CHANGE_DELTAS = {};
 
@@ -8115,19 +8115,19 @@ exports.EditSession = EditSession;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/selection', function(require, exports, module) {
+define('ace/selection', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
-var lang = require("pilot/lang");
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
-var Range = require("ace/range").Range;
-var Anchor = require("ace/anchor").Anchor;
+var oop = requireSafe("pilot/oop");
+var lang = requireSafe("pilot/lang");
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
+var Range = requireSafe("ace/range").Range;
+var Anchor = requireSafe("ace/anchor").Anchor;
 
 var Selection = function(session) {
     this.session = session;
@@ -8528,13 +8528,13 @@ exports.Selection = Selection;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/range', function(require, exports, module) {
+define('ace/range', function(requireSafe, exports, module) {
 
 var Range = function(startRow, startColumn, endRow, endColumn) {
     this.start = {
@@ -8695,16 +8695,16 @@ exports.Range = Range;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/anchor', function(require, exports, module) {
+define('ace/anchor', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
+var oop = requireSafe("pilot/oop");
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
 
 /**
  * An Anchor is a floating pointer in the document. Whenever text is inserted or
@@ -8877,16 +8877,16 @@ var Anchor = exports.Anchor = function(doc, row, column) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/mode/text', function(require, exports, module) {
+define('ace/mode/text', function(requireSafe, exports, module) {
 
-var Tokenizer = require("ace/tokenizer").Tokenizer;
-var TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;
+var Tokenizer = requireSafe("ace/tokenizer").Tokenizer;
+var TextHighlightRules = requireSafe("ace/mode/text_highlight_rules").TextHighlightRules;
 
 var Mode = function() {
     this.$tokenizer = new Tokenizer(new TextHighlightRules().getRules());
@@ -8960,13 +8960,13 @@ exports.Mode = Mode;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/tokenizer', function(require, exports, module) {
+define('ace/tokenizer', function(requireSafe, exports, module) {
 
 var Tokenizer = function(rules) {
     this.rules = rules;
@@ -9091,13 +9091,13 @@ exports.Tokenizer = Tokenizer;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/mode/text_highlight_rules', function(require, exports, module) {
+define('ace/mode/text_highlight_rules', function(requireSafe, exports, module) {
 
 var TextHighlightRules = function() {
 
@@ -9171,17 +9171,17 @@ exports.TextHighlightRules = TextHighlightRules;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/document', function(require, exports, module) {
+define('ace/document', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
-var Range = require("ace/range").Range;
+var oop = requireSafe("pilot/oop");
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
+var Range = requireSafe("ace/range").Range;
 
 var Document = function(text) {
     this.$lines = [];
@@ -9574,17 +9574,17 @@ exports.Document = Document;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/search', function(require, exports, module) {
+define('ace/search', function(requireSafe, exports, module) {
 
-var lang = require("pilot/lang");
-var oop = require("pilot/oop");
-var Range = require("ace/range").Range;
+var lang = requireSafe("pilot/lang");
+var oop = requireSafe("pilot/oop");
+var Range = requireSafe("ace/range").Range;
 
 var Search = function() {
     this.$options = {
@@ -9895,16 +9895,16 @@ exports.Search = Search;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/background_tokenizer', function(require, exports, module) {
+define('ace/background_tokenizer', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
+var oop = requireSafe("pilot/oop");
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
 
 var BackgroundTokenizer = function(tokenizer, editor) {
     this.running = false;    
@@ -10067,13 +10067,13 @@ exports.BackgroundTokenizer = BackgroundTokenizer;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/undomanager', function(require, exports, module) {
+define('ace/undomanager', function(requireSafe, exports, module) {
 
 var UndoManager = function() {
     this.$undoStack = [];
@@ -10139,16 +10139,16 @@ exports.UndoManager = UndoManager;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/theme/textmate', function(require, exports, module) {
+define('ace/theme/textmate', function(requireSafe, exports, module) {
 
-    var dom = require("pilot/dom");
-    var cssText = require("text!ace/theme/tm.css");
+    var dom = requireSafe("pilot/dom");
+    var cssText = requireSafe("text!ace/theme/tm.css");
 
     // import CSS once
     dom.importCssString(cssText);
@@ -10186,15 +10186,15 @@ define('ace/theme/textmate', function(require, exports, module) {
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/mode/matching_brace_outdent', function(require, exports, module) {
+define('ace/mode/matching_brace_outdent', function(requireSafe, exports, module) {
 
-var Range = require("ace/range").Range;
+var Range = requireSafe("ace/range").Range;
 
 var MatchingBraceOutdent = function() {};
 
@@ -10269,26 +10269,26 @@ exports.MatchingBraceOutdent = MatchingBraceOutdent;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/virtual_renderer', function(require, exports, module) {
+define('ace/virtual_renderer', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
-var dom = require("pilot/dom");
-var event = require("pilot/event");
-var useragent = require("pilot/useragent");
-var GutterLayer = require("ace/layer/gutter").Gutter;
-var MarkerLayer = require("ace/layer/marker").Marker;
-var TextLayer = require("ace/layer/text").Text;
-var CursorLayer = require("ace/layer/cursor").Cursor;
-var ScrollBar = require("ace/scrollbar").ScrollBar;
-var RenderLoop = require("ace/renderloop").RenderLoop;
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
-var editorCss = require("text!ace/css/editor.css");
+var oop = requireSafe("pilot/oop");
+var dom = requireSafe("pilot/dom");
+var event = requireSafe("pilot/event");
+var useragent = requireSafe("pilot/useragent");
+var GutterLayer = requireSafe("ace/layer/gutter").Gutter;
+var MarkerLayer = requireSafe("ace/layer/marker").Marker;
+var TextLayer = requireSafe("ace/layer/text").Text;
+var CursorLayer = requireSafe("ace/layer/cursor").Cursor;
+var ScrollBar = requireSafe("ace/scrollbar").ScrollBar;
+var RenderLoop = requireSafe("ace/renderloop").RenderLoop;
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
+var editorCss = requireSafe("text!ace/css/editor.css");
 
 // import CSS once
 dom.importCssString(editorCss);
@@ -10942,7 +10942,7 @@ var VirtualRenderer = function(container, theme) {
         var _self = this;
         if (!theme || typeof theme == "string") {
             theme = theme || "ace/theme/textmate";
-            require([theme], function(theme) {
+            requireSafe([theme], function(theme) {
                 afterLoad(theme);
             });
         } else {
@@ -11015,15 +11015,15 @@ exports.VirtualRenderer = VirtualRenderer;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/layer/gutter', function(require, exports, module) {
+define('ace/layer/gutter', function(requireSafe, exports, module) {
 
-var dom = require("pilot/dom");
+var dom = requireSafe("pilot/dom");
 
 var Gutter = function(parentEl) {
     this.element = document.createElement("div");
@@ -11138,16 +11138,16 @@ exports.Gutter = Gutter;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/layer/marker', function(require, exports, module) {
+define('ace/layer/marker', function(requireSafe, exports, module) {
 
-var Range = require("ace/range").Range;
-var dom = require("pilot/dom");
+var Range = requireSafe("ace/range").Range;
+var dom = requireSafe("pilot/dom");
 
 var Marker = function(parentEl) {
     this.element = document.createElement("div");
@@ -11317,18 +11317,18 @@ exports.Marker = Marker;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/layer/text', function(require, exports, module) {
+define('ace/layer/text', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
-var dom = require("pilot/dom");
-var lang = require("pilot/lang");
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
+var oop = requireSafe("pilot/oop");
+var dom = requireSafe("pilot/dom");
+var lang = requireSafe("pilot/lang");
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
 
 var Text = function(parentEl) {
     this.element = document.createElement("div");
@@ -11667,15 +11667,15 @@ exports.Text = Text;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/layer/cursor', function(require, exports, module) {
+define('ace/layer/cursor', function(requireSafe, exports, module) {
 
-var dom = require("pilot/dom");
+var dom = requireSafe("pilot/dom");
 
 var Cursor = function(parentEl) {
     this.element = document.createElement("div");
@@ -11811,18 +11811,18 @@ exports.Cursor = Cursor;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/scrollbar', function(require, exports, module) {
+define('ace/scrollbar', function(requireSafe, exports, module) {
 
-var oop = require("pilot/oop");
-var dom = require("pilot/dom");
-var event = require("pilot/event");
-var EventEmitter = require("pilot/event_emitter").EventEmitter;
+var oop = requireSafe("pilot/oop");
+var dom = requireSafe("pilot/dom");
+var event = requireSafe("pilot/event");
+var EventEmitter = requireSafe("pilot/event_emitter").EventEmitter;
 
 var ScrollBar = function(parent) {
     this.element = document.createElement("div");
@@ -11897,15 +11897,15 @@ exports.ScrollBar = ScrollBar;
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
  * ***** END LICENSE BLOCK ***** */
 
-define('ace/renderloop', function(require, exports, module) {
+define('ace/renderloop', function(requireSafe, exports, module) {
 
-var event = require("pilot/event");
+var event = requireSafe("pilot/event");
 
 var RenderLoop = function(onRender) {
     this.onRender = onRender;
@@ -12424,7 +12424,7 @@ define("text!icons/epl.html", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Tra
   "or otherwise. As a condition to exercising the rights and licenses" +
   "granted hereunder, each Recipient hereby assumes sole responsibility to" +
   "secure any other intellectual property rights needed, if any. For" +
-  "example, if a third party patent license is required to allow Recipient" +
+  "example, if a third party patent license is requireSafed to allow Recipient" +
   "to distribute the Program, it is Recipient's responsibility to acquire" +
   "that license before distributing the Program.</p>" +
   "" +
@@ -12506,7 +12506,7 @@ define("text!icons/epl.html", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Tra
   "claims and warranties are such Commercial Contributor's responsibility" +
   "alone. Under this section, the Commercial Contributor would have to" +
   "defend claims against the other Contributors related to those" +
-  "performance claims and warranties, and if a court requires any other" +
+  "performance claims and warranties, and if a court requireSafes any other" +
   "Contributor to pay any damages as a result, the Commercial Contributor" +
   "must pay those damages.</p>" +
   "" +
@@ -12691,7 +12691,7 @@ define("text!logo.png", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIkAAAAyC
  * under the terms of either the GPL or the LGPL, and not to allow others to
  * use your version of this file under the terms of the MPL, indicate your
  * decision by deleting the provisions above and replace them with the notice
- * and other provisions required by the GPL or the LGPL. If you do not delete
+ * and other provisions requireSafed by the GPL or the LGPL. If you do not delete
  * the provisions above, a recipient may use your version of this file under
  * the terms of any one of the MPL, the GPL or the LGPL.
  *
@@ -12709,17 +12709,17 @@ var deps = [
     "ace/theme/textmate"
 ];
 
-require(deps, function() {
-    var catalog = require("pilot/plugin_manager").catalog;
+requireSafe(deps, function() {
+    var catalog = requireSafe("pilot/plugin_manager").catalog;
     catalog.registerPlugins([ "pilot/index" ]);
     
-    var Dom = require("pilot/dom");
-    var Event = require("pilot/event");
+    var Dom = requireSafe("pilot/dom");
+    var Event = requireSafe("pilot/event");
     
-    var Editor = require("ace/editor").Editor;
-    var EditSession = require("ace/edit_session").EditSession;
-    var UndoManager = require("ace/undomanager").UndoManager;
-    var Renderer = require("ace/virtual_renderer").VirtualRenderer;
+    var Editor = requireSafe("ace/editor").Editor;
+    var EditSession = requireSafe("ace/edit_session").EditSession;
+    var UndoManager = requireSafe("ace/undomanager").UndoManager;
+    var Renderer = requireSafe("ace/virtual_renderer").VirtualRenderer;
     
     window.ace = {
         edit: function(el) {
@@ -12734,7 +12734,7 @@ require(deps, function() {
             var editor = new Editor(new Renderer(el, "ace/theme/textmate"));
             editor.setSession(doc);
             
-            var env = require("pilot/environment").create();
+            var env = requireSafe("pilot/environment").create();
             catalog.startupPlugins({ env: env }).then(function() {
                 env.document = doc;
                 env.editor = env;
