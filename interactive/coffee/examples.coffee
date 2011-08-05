@@ -50,7 +50,7 @@ window.examples =
     intro: "US Foreign Aid"
     file: "examples/barAid.coffee"
     type: "coffee"
-    requirements: ["../d3/d3.js", "data/aidList.js", "js/raphael.js"]
+    requirements: ["../d3/d3.js", "js/underscore.js", "data/aidList.js", "js/raphael.js"]
 ###
   'brain':
     intro: "Neural network with Brain.js"

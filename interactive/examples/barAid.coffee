@@ -27,13 +27,19 @@ makeData = (countries) ->
     for b in yearlyTotals
       if country is b.country
         for u,v of dates
-          b.years[u] += v ? 0
+          b.years[u] or= 0
+          b.years[u] += v
   return countryList
 
 getCountryClass = (country) ->
-  for c,i in countryList
+  for c in countryList
     if country is c.country
       return c.colorClass
+
+getCountryYearTotal = (country, year) ->
+  for c in yearlyTotals
+    if country is c.country
+      return "$" + formatMoney c.years[year]
 
 # Init JSON and make each bar
 d3.json "data/aid.json", (depts) ->
@@ -101,7 +107,7 @@ runHovers = ->
     for c in countryList
       if colorClass is c.colorClass
         $('.'+colorClass).css({background:c.color})
-        $('#countryTotal').text(c.country)
+        $('#countryTotal').text("#{c.country} : #{getCountryYearTotal(c.country, t)}")
   .bind "mouseleave", ->
     $('.'+colorClass).css({background:'transparent'})
     $('#countryTotal').text('')
