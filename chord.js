@@ -1,6 +1,5 @@
 var arcs = [],
     chords = [];
-var counter = false;
 
 var data = [
     [11975,  5871, 8916, 2868],
@@ -9,22 +8,7 @@ var data = [
     [ 1013,   990,  940, 6907]
   ];
 
-var data2 = [
-    [ rand(),  rand(), rand(), rand()],
-    [ rand(),  rand(), rand(), rand()],
-    [ rand(),  rand(), rand(), rand()],
-    [ rand(),  rand(), rand(), rand()]
-  ];
-
-var chord = d3.layout.chord()
-  .padding(.05)
-  .sortSubgroups(d3.descending)
-  .matrix(data);
-
-var chord2 = d3.layout.chord()
-  .padding(.05)
-  .sortSubgroups(d3.descending)
-  .matrix(data2);
+var last_chord = {};
 
 var fill = d3.scale.ordinal()
     .domain(d3.range(4))
@@ -35,15 +19,22 @@ var w = 480,
     r0 = Math.min(w, h) * .41,
     r1 = r0 * 1.1;
 
-var svg = render(chord);
+var svg = render(data);
 
 /*** Interactions ***/
 
 d3.select("#change").on("click", function() {
+  var new_data = [
+      [ rand(),  rand(), rand(), rand()],
+      [ rand(),  rand(), rand(), rand()],
+      [ rand(),  rand(), rand(), rand()],
+      [ rand(),  rand(), rand(), rand()]
+    ];
+
   // remove ticks and rerender
   svg.selectAll(".ticks")
     .transition()
-      .each("end", function() { rerender(); })
+      .each("end", function() { rerender(new_data); })
       .duration(200)
       .attr("opacity", 0.1)
       .remove();
@@ -51,7 +42,13 @@ d3.select("#change").on("click", function() {
 
 /*** Functions ***/
 
-function render(chord) {
+function render(data) {
+
+  var chord = d3.layout.chord()
+    .padding(.05)
+    .sortSubgroups(d3.descending)
+    .matrix(data);
+
   // create svg
   var svg = d3.select("#chart")
     .append("svg:svg")
@@ -72,8 +69,7 @@ function render(chord) {
        "fill": function(d) { return fill(d.index); },
        "stroke": function(d) { return fill(d.index); },
        })
-     .attr("d", d3.svg.arc().innerRadius(r0).outerRadius(r1))
-     .each(stash_arc);
+     .attr("d", d3.svg.arc().innerRadius(r0).outerRadius(r1));
 
   // draw chords
   svg.append("svg:g")
@@ -86,21 +82,28 @@ function render(chord) {
        "fill": function(d) { return fill(d.target.index); },
        "stroke": '#333',
        "opacity": 1
-       })
-     .each(stash_chord);
+       });
 
   drawTicks(chord,svg);
+
+  last_chord = chord;
 
   return svg;
 };
 
-function rerender() {
+function rerender(data) {
+
+  var chord = d3.layout.chord()
+    .padding(.05)
+    .sortSubgroups(d3.descending)
+    .matrix(data);
+
   // update arcs
   svg.selectAll(".arc")
-     .data(chord2.groups)
+     .data(chord.groups)
      .transition()
      .duration(1500)
-     .attrTween("d", arcTween); 
+     .attrTween("d", arcTween(last_chord));
 
   // used to time tick drawing
   var last = svg.select(".chord").selectAll("path")[0].length - 1
@@ -108,22 +111,17 @@ function rerender() {
   // update chords
   svg.select(".chord")
      .selectAll("path")
-     .data(chord2.chords)
+     .data(chord.chords)
      .transition()
      .duration(1500)
-     .attrTween("d", chordTween)
+     .attrTween("d", chordTween(last_chord))
      .each("end", function(d,i) {
        if (i == last) {
-         if (counter) {
-           drawTicks(chord2,svg);
-         } else {
            drawTicks(chord,svg);
-         }
        }
      });
 
-  // flip active dataset
-  counter = !counter;
+  last_chord = chord;
 }
 
 function drawTicks(chord,svg) {
@@ -179,35 +177,23 @@ var arc =  d3.svg.arc()
 
 var chordl = d3.svg.chord().radius(r0);
 
-function stash_arc(d,i) {
-  arcs[i] = d;
-}
+function arcTween(chord) {
+  return function(d,i) {
+    var i = d3.interpolate(chord.groups()[i], d);
 
-function stash_chord(d,i) {
-  chords[i] = d;
-}
-
-function arcTween(d,i) {
-  if (counter) {
-    var i = d3.interpolate(arcs[i], d);
-  } else {
-    var i = d3.interpolate(d, arcs[i]);
-  }
-
-  return function(t) {
-    return arc(i(t));
+    return function(t) {
+      return arc(i(t));
+    }
   }
 }
 
-function chordTween(d,i) {
-  if (counter) {
-    var i = d3.interpolate(chords[i], d);
-  } else {
-    var i = d3.interpolate(d, chords[i]);
-  }
+function chordTween(chord) {
+  return function(d,i) {
+    var i = d3.interpolate(chord.chords()[i], d);
 
-  return function(t) {
-    return chordl(i(t));
+    return function(t) {
+      return chordl(i(t));
+    }
   }
 }
 
