@@ -53,10 +53,8 @@ function render(chord) {
   // create svg
   var svg = d3.select("#chart")
     .append("svg:svg")
-    .attr({
-      "width": w,
-      "height": h
-      })
+    .attr("width", w)
+    .attr("height", h)
     .append("svg:g")
     .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
  
@@ -66,10 +64,8 @@ function render(chord) {
      .data(chord.groups)
      .enter().append("svg:path")
      .attr("class", "arc")
-     .style({
-       "fill": function(d) { return fill(d.index); },
-       "stroke": function(d) { return fill(d.index); },
-       })
+     .style("fill", function(d) { return fill(d.index); })
+     .style("stroke", function(d) { return fill(d.index); })
      .attr("d", d3.svg.arc().innerRadius(r0).outerRadius(r1))
      .each(stash_arc);
 
@@ -80,11 +76,9 @@ function render(chord) {
      .data(chord.chords)
      .enter().append("svg:path")
      .attr("d", d3.svg.chord().radius(r0))
-     .style({
-       "fill": function(d) { return fill(d.target.index); },
-       "stroke": '#333',
-       "opacity": 1
-       })
+     .style("fill", function(d) { return fill(d.target.index); })
+     .style("stroke", '#333')
+     .style("opacity", 1)
      .each(stash_chord);
 
   drawTicks(chord,svg);
@@ -145,25 +139,21 @@ function drawTicks(chord,svg) {
      .attr("opacity", 1)
 
   ticks.append("svg:line")
-       .attr({
-         "x1": 1,
-         "y1": 0,
-         "x2": 5,
-         "y2": 0,
-         "stroke": "#000"
-         });
+       .attr("x1", 1)
+       .attr("y1", 0)
+       .attr("x2", 5)
+       .attr("y2", 0)
+       .attr("stroke", '#000')
 
   ticks.append("svg:text")
-       .attr({
-         "x": 8,
-         "dy": ".35em",
-         "text-anchor": function(d) {
+       .attr("x", 8)
+       .attr("dy", '.35em')
+       .attr("text-anchor", function(d) {
              return d.angle > Math.PI ? "end" : null;
-           },
-         "transform": function(d) {
+           })
+       .attr("transform", function(d) {
              return d.angle > Math.PI ? "rotate(180)translate(-16)" : null;
-           }
-         })
+           })
        .text(function(d) { return d.label; });
 
   return ticks;
